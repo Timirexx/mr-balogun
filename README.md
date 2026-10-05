@@ -64,7 +64,10 @@ and the command palette pick it up automatically; handle the new `toolId` in the
 Everything is stored in the browser — state in `localStorage`, uploaded files in IndexedDB.
 Settings → Data & Privacy can export everything as JSON or reset the workspace.
 
-## Swapping the avatar
+## Avatar assets
 
-Replace the files in `public/avatar/` (`hero.webp` ≈ 790×840 portrait, `avatar.webp` 256×256 head,
-`profile.webp` ≈ 440×500 side profile). Higher-resolution versions will look sharper on large screens.
+- `public/avatar/face/{lg,sm}/NNN.webp` — the landing hero's cursor-following face. An image sequence cut out
+  of the reference head-movement video (frames 12–31 turn right, 136–159 look up/down), colour-graded, with alpha.
+  `src/landing/FollowingFace.tsx` scrubs through it with a spring and cross-dissolves between frames; the left turn
+  is the right turn mirrored. `lg` is ~680×700 for desktop, `sm` is 60% for phones.
+- `hero.webp` ≈ 790×840 portrait (dashboard Home), `avatar.webp` 256×256 head, `profile.webp` ≈ 440×500 side profile.

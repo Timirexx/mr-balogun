@@ -1,7 +1,8 @@
-import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { ArrowRight, MousePointer2 } from 'lucide-react'
 import { useRef, type PointerEvent } from 'react'
 import { Link } from 'react-router-dom'
+import { FollowingFace } from './FollowingFace'
 
 const ease = [0.16, 1, 0.3, 1] as const
 
@@ -16,18 +17,6 @@ const SPARKS = [
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null)
-  const mx = useMotionValue(0)
-  const my = useMotionValue(0)
-  const sx = useSpring(mx, { stiffness: 70, damping: 18, mass: 0.6 })
-  const sy = useSpring(my, { stiffness: 70, damping: 18, mass: 0.6 })
-  const rotateY = useTransform(sx, [-1, 1], [-10, 10])
-  const rotateX = useTransform(sy, [-1, 1], [7, -7])
-  const x = useTransform(sx, [-1, 1], [-18, 18])
-  const y = useTransform(sy, [-1, 1], [-12, 12])
-  const gx = useTransform(sx, [-1, 1], [30, 70])
-  const gy = useTransform(sy, [-1, 1], [22, 62])
-  const glow = useMotionTemplate`radial-gradient(circle at ${gx}% ${gy}%, rgba(80,170,255,0.28), transparent 42%)`
-
   const cx = useMotionValue(-200)
   const cy = useMotionValue(-200)
   const ringX = useSpring(cx, { stiffness: 300, damping: 30 })
@@ -36,17 +25,11 @@ export function Hero() {
   const onMove = (e: PointerEvent) => {
     if (e.pointerType !== 'mouse' || !ref.current) return
     const r = ref.current.getBoundingClientRect()
-    const faceX = r.left + r.width * 0.62
-    const faceY = r.top + r.height * 0.4
-    mx.set(Math.max(-1, Math.min(1, (e.clientX - faceX) / (r.width * 0.45))))
-    my.set(Math.max(-1, Math.min(1, (e.clientY - faceY) / (r.height * 0.5))))
     cx.set(e.clientX - r.left)
     cy.set(e.clientY - r.top)
   }
 
   const onLeave = () => {
-    mx.set(0)
-    my.set(0)
     cx.set(-200)
     cy.set(-200)
   }
@@ -63,24 +46,15 @@ export function Hero() {
       <div className="bg-grid absolute inset-0 -z-20 [mask-image:radial-gradient(ellipse_at_60%_40%,#000,transparent_70%)] opacity-60" />
 
       {/* Face */}
-      <div className="absolute inset-x-0 top-0 -z-10 h-[64svh] [perspective:1200px] md:inset-y-0 md:right-[-4%] md:left-auto md:h-full md:w-[62%] lg:right-[2%] lg:w-[56%]">
-        <motion.div
-          className="relative h-full w-full"
-          style={{ rotateX, rotateY, x, y, transformStyle: 'preserve-3d' }}
-          initial={{ opacity: 0, scale: 1.06 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.6, ease }}
-        >
-          <img
-            src="/avatar/hero.webp"
-            alt="Mr Balogun — robotic AI assistant"
-            className="h-full w-full object-cover object-[36%_10%] md:object-[50%_10%] [mask-composite:intersect] [mask-image:radial-gradient(ellipse_75%_62%_at_50%_38%,#000_50%,transparent_100%),linear-gradient(#000_60%,transparent)] md:[mask-image:radial-gradient(ellipse_50%_66%_at_50%_40%,#000_58%,transparent_100%),linear-gradient(#000_70%,transparent_98%)]"
-            draggable={false}
-            fetchPriority="high"
-          />
-          <motion.div className="pointer-events-none absolute inset-0 mix-blend-screen [mask-image:radial-gradient(ellipse_55%_60%_at_50%_42%,#000_40%,transparent_90%)]" style={{ background: glow }} />
-        </motion.div>
-      </div>
+      <motion.div
+        className="absolute inset-x-0 top-0 -z-10 h-[64svh] md:top-[7vh] md:right-[-4%] md:left-auto md:aspect-[680/740] md:h-auto md:w-[62%] lg:top-0 lg:right-[2%] lg:bottom-0 lg:aspect-auto lg:h-full lg:w-[56%]"
+        initial={{ opacity: 0, scale: 1.06 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.6, ease }}
+      >
+        <div className="absolute top-[4%] left-1/2 h-[62%] w-[70%] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(10,90,200,0.38),rgba(6,50,120,0.16)_55%,transparent)] blur-2xl" />
+        <FollowingFace imgClassName="[mask-composite:intersect] [mask-image:radial-gradient(ellipse_78%_66%_at_50%_38%,#000_55%,transparent_100%),linear-gradient(#000_58%,transparent)] md:[mask-image:radial-gradient(ellipse_52%_68%_at_50%_40%,#000_60%,transparent_100%),linear-gradient(#000_68%,transparent_97%)]" />
+      </motion.div>
 
       {SPARKS.map((p, i) => (
         <motion.span
