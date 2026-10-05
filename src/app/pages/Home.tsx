@@ -113,7 +113,7 @@ function HomeHero() {
           Welcome back,
         </motion.p>
         <motion.h1 {...rise(1)} className="mt-1 text-[2.6rem] leading-[1.05] font-bold tracking-[-0.035em] text-white sm:text-5xl lg:text-[3.4rem]">
-          {first} {rest.length > 0 && <span className="text-brand-gradient text-glow">{rest.join(' ')}</span>}
+          {first} {rest.length > 0 && <span className="font-accent text-brand-gradient text-glow">{rest.join(' ')}</span>}
         </motion.h1>
         <motion.p {...rise(2)} className="mt-4 max-w-sm text-[0.98rem] leading-relaxed text-fg-soft/85">
           Your personal AI assistant. Ready to help you think, plan, create and do more.
@@ -167,7 +167,7 @@ function FeatureCards() {
             <span className="icon-box size-11 sm:size-12">
               <f.icon className="size-5 sm:size-6" strokeWidth={1.6} />
             </span>
-            <p className="mt-4 text-lg font-semibold text-white">{f.title}</p>
+            <p className="font-display mt-4 text-lg font-semibold text-white">{f.title}</p>
             <p className="mt-1.5 line-clamp-3 flex-1 text-[0.82rem] leading-relaxed text-muted">{f.text}</p>
             <ArrowRight className="mt-3 size-4 self-end text-brand-300 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
@@ -199,7 +199,7 @@ function TodayOverview() {
         <div className="flex items-center gap-3.5">
           <CalendarDays className="size-7 text-fg-soft" strokeWidth={1.4} />
           <div>
-            <p className="text-base font-medium text-white sm:text-lg">Today's Overview</p>
+            <p className="font-display text-base font-medium text-white sm:text-lg">Today's Overview</p>
             <p className="text-xs text-muted">{formatLongDate()}</p>
           </div>
         </div>
@@ -233,7 +233,7 @@ function RecentConversations() {
       <div className="mb-2 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <MessageSquareMore className="size-5 text-fg-soft" strokeWidth={1.6} />
-          <p className="text-[0.95rem] font-medium text-white">Recent Conversations</p>
+          <p className="font-display text-[0.95rem] font-medium text-white">Recent Conversations</p>
         </div>
         <Link to="/app/chat" className="flex items-center gap-1 text-xs text-brand-300 hover:text-brand-200">
           View all <ArrowRight className="size-3.5" />
@@ -280,7 +280,7 @@ function AssistantPanel() {
       <button onClick={() => setOpen((v) => !v)} className="flex w-full items-center gap-3 text-left" aria-expanded={open}>
         <AIAvatar size={44} />
         <span className="flex-1">
-          <span className="block text-sm font-medium text-white">AI Assistant</span>
+          <span className="font-display block text-sm font-medium text-white">AI Assistant</span>
           <span className="flex items-center gap-1.5 text-xs text-online">
             <span className="size-1.5 rounded-full bg-online shadow-[0_0_6px_rgba(34,227,161,0.9)]" /> Online
           </span>
@@ -320,7 +320,7 @@ function QuickActions() {
     <Panel className="p-4">
       <div className="mb-2 flex items-center gap-3 px-0.5">
         <SquareDashedMousePointer className="size-[18px] text-fg-soft" strokeWidth={1.6} />
-        <p className="text-sm font-medium text-white">Quick Actions</p>
+        <p className="font-display text-sm font-medium text-white">Quick Actions</p>
       </div>
       <ul className="divide-y divide-line-soft">
         {items.map((i) => (
@@ -361,7 +361,7 @@ function RecentActivity() {
   return (
     <Panel className="p-4">
       <div className="mb-1 flex items-center justify-between">
-        <p className="text-sm font-medium text-white">Recent Activity</p>
+        <p className="font-display text-sm font-medium text-white">Recent Activity</p>
         <button onClick={() => setAll(true)} className="flex items-center gap-1 text-xs text-brand-300 hover:text-brand-200">
           View all <ArrowRight className="size-3.5" />
         </button>

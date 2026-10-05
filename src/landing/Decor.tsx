@@ -98,12 +98,12 @@ export function FeatureSection({ id, index, total, title, accentWord, text, bull
       {decor}
       <div className={cn('relative mx-auto grid max-w-6xl items-center gap-12 px-5 py-20 sm:px-8 md:py-28 lg:grid-cols-2 lg:gap-16')}>
         <Reveal className={cn(reverse && 'lg:order-2')}>
-          <p className="text-sm font-medium tracking-wide text-brand-400">
+          <p className="font-display text-sm font-medium tracking-wide text-brand-400">
             {String(index).padStart(2, '0')} <span className="text-subtle">/ {String(total).padStart(2, '0')}</span>
           </p>
           <h2 className="mt-3 text-3xl font-semibold tracking-[-0.02em] text-white sm:text-4xl">
             {parts[0]}
-            {accentWord && <span className="text-brand-gradient">{accentWord}</span>}
+            {accentWord && <span className="font-accent text-brand-gradient">{accentWord}</span>}
             {parts[1]}
           </h2>
           <p className="mt-4 max-w-md text-[1.02rem] leading-relaxed text-muted">{text}</p>

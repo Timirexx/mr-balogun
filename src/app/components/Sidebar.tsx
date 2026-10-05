@@ -17,7 +17,7 @@ export function NavItemLink({ to, label, icon: Icon, end, onClick, rail }: (type
       title={label}
       className={({ isActive }) =>
         cn(
-          'group relative flex items-center gap-3.5 rounded-xl border px-3.5 py-2.5 text-[0.95rem] transition-all duration-300',
+          'font-display group relative flex items-center gap-3.5 rounded-xl border px-3.5 py-2.5 text-[0.95rem] transition-all duration-300',
           rail && 'md:max-lg:justify-center md:max-lg:px-0',
           isActive
             ? 'border-brand-500/70 bg-gradient-to-r from-brand-800/70 to-brand-900/50 text-white shadow-[0_0_calc(24px*var(--glow))_-6px_rgba(6,140,252,0.9),inset_0_0_20px_rgba(6,140,252,0.18)]'

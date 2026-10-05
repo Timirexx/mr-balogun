@@ -15,31 +15,34 @@ const TOTAL = 6
 function VoiceSection() {
   return (
     <section className="relative overflow-hidden border-t border-line-soft">
-      <LightStreaks className="top-[30%] left-[25%] h-1/2 w-[60%] opacity-40" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[34%] lg:block">
-        <img
-          src="/avatar/profile.webp"
-          alt=""
-          className="h-full w-full object-cover object-left [mask-image:linear-gradient(90deg,transparent,#000_30%,#000_85%,transparent),linear-gradient(180deg,transparent,#000_15%,#000_85%,transparent)] [mask-composite:intersect]"
-          loading="lazy"
-        />
-      </div>
-      <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 py-20 sm:px-8 md:py-28 lg:grid-cols-[0.9fr_1.1fr]">
-        <Reveal>
-          <p className="text-sm font-medium tracking-wide text-brand-400">
-            03 <span className="text-subtle">/ 0{TOTAL}</span>
-          </p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-[-0.02em] text-white sm:text-4xl">
-            Voice <span className="text-brand-gradient">Interaction</span>
-          </h2>
-          <p className="mt-4 max-w-md text-[1.02rem] leading-relaxed text-muted">
-            Speak naturally. Get instant responses. Mr Balogun listens, understands, and replies in real time.
-          </p>
-          <CheckList items={['Natural voice conversations', 'Hands-free convenience', 'Fast & accurate responses']} />
-        </Reveal>
-        <Reveal delay={0.15} className="lg:pr-[22%]">
-          <VoiceDemo />
-        </Reveal>
+      <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
+        <LightStreaks className="top-[30%] left-[20%] h-1/2 w-[60%] opacity-40" />
+        <div className="pointer-events-none absolute inset-y-0 right-[-5%] hidden w-[34%] lg:block">
+          <div className="absolute top-1/2 left-[30%] size-[70%] -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(10,90,200,0.32),transparent)] blur-2xl" />
+          <img
+            src="/avatar/profile.webp"
+            alt=""
+            className="relative h-full w-full object-cover object-[22%_30%] [mask-composite:intersect] [mask-image:linear-gradient(90deg,transparent,#000_22%),linear-gradient(180deg,transparent,#000_10%,#000_78%,transparent)]"
+            loading="lazy"
+          />
+        </div>
+        <div className="relative grid items-center gap-12 py-20 md:py-28 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+          <Reveal>
+            <p className="font-display text-sm font-medium tracking-wide text-brand-400">
+              03 <span className="text-subtle">/ 0{TOTAL}</span>
+            </p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.02em] text-white sm:text-4xl">
+              Voice <span className="font-accent text-brand-gradient">Interaction</span>
+            </h2>
+            <p className="mt-4 max-w-md text-[1.02rem] leading-relaxed text-muted">
+              Speak naturally. Get instant responses. Mr Balogun listens, understands, and replies in real time.
+            </p>
+            <CheckList items={['Natural voice conversations', 'Hands-free convenience', 'Fast & accurate responses']} />
+          </Reveal>
+          <Reveal delay={0.15} className="lg:pr-[42%]">
+            <VoiceDemo />
+          </Reveal>
+        </div>
       </div>
     </section>
   )

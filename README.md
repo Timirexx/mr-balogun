@@ -66,8 +66,17 @@ Settings → Data & Privacy can export everything as JSON or reset the workspace
 
 ## Avatar assets
 
-- `public/avatar/face/{lg,sm}/NNN.webp` — the landing hero's cursor-following face. An image sequence cut out
-  of the reference head-movement video (frames 12–31 turn right, 136–159 look up/down), colour-graded, with alpha.
-  `src/landing/FollowingFace.tsx` scrubs through it with a spring and cross-dissolves between frames; the left turn
-  is the right turn mirrored. `lg` is ~680×700 for desktop, `sm` is 60% for phones.
-- `hero.webp` ≈ 790×840 portrait (dashboard Home), `avatar.webp` 256×256 head, `profile.webp` ≈ 440×500 side profile.
+- `public/avatar/face/{lg,sm}/NNN.webp` — the landing hero's cursor-following face (left/right only). Frames 12–31
+  of the reference head-movement video, cut out and colour-graded, with alpha. `src/landing/FollowingFace.tsx`
+  scrubs through them with a spring and cross-dissolves between frames; the left turn is the right turn mirrored.
+  `lg` is ~680×700 for desktop, `sm` is 60% for phones.
+- `hero.webp` ≈ 790×840 portrait (dashboard Home), `avatar.webp` 256×256 head, `profile.webp` 900×900 cut-out side profile.
+
+## Fonts
+
+- Body: **Inter** (bundled).
+- Display: **Neue Montreal** — commercial (Pangram Pangram). Used when installed; visitors get **Switzer** (Fontshare CDN) until a web licence is added.
+- Accent: **Canela Italic** — commercial (Commercial Type), used via `font-accent`. Visitors get **Instrument Serif Italic** until a web licence is added.
+
+To switch visitors to the real fonts, add the licensed `.woff2` files to `public/fonts/` and declare them with `@font-face`
+in `src/index.css` under the family names `Neue Montreal` and `Canela` — the stacks (`--font-display`, `--font-canela`) already prefer them.

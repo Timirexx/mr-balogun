@@ -222,7 +222,7 @@ function EmptyChat({ onPick, onAttach }: { onPick: (p: string) => void; onAttach
         <AIAvatar size={88} className="relative" />
       </motion.div>
       <motion.h2 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="mt-6 text-center text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-        How can I help, <span className="text-brand-gradient">{firstName(name)}</span>?
+        How can I help, <span className="font-accent text-brand-gradient">{firstName(name)}</span>?
       </motion.h2>
       <p className="mt-2 text-center text-sm text-muted">Ask anything, attach a file, or tap the mic to talk.</p>
       <div className="mt-6 grid w-full max-w-2xl grid-cols-2 gap-2.5 sm:mt-8 sm:gap-3">

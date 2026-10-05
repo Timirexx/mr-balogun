@@ -51,7 +51,7 @@ export function VoiceDemo() {
 
   return (
     <div className="relative">
-      <div className="relative z-10 mb-8 ml-auto w-fit max-w-[19rem] sm:mr-8">
+      <div className="relative z-10 mx-auto mb-8 w-fit max-w-[19rem]">
         <div className="glass-strong flex items-start gap-3 rounded-2xl rounded-br-sm px-4 py-3">
           <p className="text-[0.82rem] leading-relaxed text-fg-soft">{QUESTION}</p>
           <AIAvatar size={30} />

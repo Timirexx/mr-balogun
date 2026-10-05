@@ -20,9 +20,9 @@ export function HowItWorks() {
     <section id="how-it-works" className="relative scroll-mt-20 border-t border-line-soft">
       <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 md:py-28">
         <Reveal className="mx-auto max-w-xl text-center">
-          <p className="text-sm font-medium tracking-wide text-brand-400">How it works</p>
+          <p className="font-display text-sm font-medium tracking-wide text-brand-400">How it works</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-[-0.02em] text-white sm:text-4xl">
-            Three steps. <span className="text-brand-gradient">Zero friction.</span>
+            Three steps. <span className="font-accent text-brand-gradient">Zero friction.</span>
           </h2>
         </Reveal>
         <div className="relative mt-14 grid gap-5 md:grid-cols-3">
@@ -72,9 +72,9 @@ export function Pricing() {
       <div className="absolute top-1/2 left-1/2 -z-10 h-80 w-[40rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-600/10 blur-3xl" />
       <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 md:py-28">
         <Reveal className="mx-auto max-w-xl text-center">
-          <p className="text-sm font-medium tracking-wide text-brand-400">Pricing</p>
+          <p className="font-display text-sm font-medium tracking-wide text-brand-400">Pricing</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-[-0.02em] text-white sm:text-4xl">
-            Start free. <span className="text-brand-gradient">Grow into Pro.</span>
+            Start free. <span className="font-accent text-brand-gradient">Grow into Pro.</span>
           </h2>
         </Reveal>
         <div className="mx-auto mt-14 grid max-w-3xl gap-5 md:grid-cols-2">
@@ -175,7 +175,7 @@ export function FinalCta() {
 
       <Reveal className="mx-auto max-w-2xl px-5 py-28 text-center sm:py-36">
         <h2 className="text-3xl font-light tracking-[-0.02em] text-brand-100 sm:text-5xl">
-          Ready to Experience
+          Ready to <span className="font-accent">Experience</span>
           <br />
           <span className="font-semibold text-white">Mr Balogun?</span>
         </h2>

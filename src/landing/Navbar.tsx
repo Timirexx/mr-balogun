@@ -48,17 +48,17 @@ export function Navbar() {
         scrolled ? 'border-b border-line-soft bg-ink-900/70 backdrop-blur-xl' : 'bg-transparent',
       )}
     >
-      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:h-[72px] sm:px-8">
-        <a href="#home" aria-label="Mr Balogun home">
+      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:h-[72px] sm:px-8 md:grid md:grid-cols-[1fr_auto_1fr]">
+        <a href="#home" aria-label="Mr Balogun home" className="justify-self-start">
           <Logo />
         </a>
 
-        <ul className="hidden items-center gap-9 md:flex">
+        <ul className="hidden items-center gap-8 md:flex lg:gap-10">
           {LINKS.map((l) => (
             <li key={l.href}>
               <a
                 href={l.href}
-                className={cn('relative py-2 text-sm transition-colors', active === l.href ? 'text-brand-300' : 'text-fg-soft hover:text-white')}
+                className={cn('font-display relative py-2 text-sm transition-colors', active === l.href ? 'text-brand-300' : 'text-fg-soft hover:text-white')}
               >
                 {l.label}
                 {active === l.href && (
@@ -69,7 +69,7 @@ export function Navbar() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 justify-self-end">
           <Link to="/app" className="btn-primary hidden px-5 py-2 text-sm sm:inline-flex">
             Get Started <ArrowRight className="size-4" />
           </Link>
