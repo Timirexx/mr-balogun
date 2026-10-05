@@ -42,13 +42,15 @@ export function Navbar() {
   }, [])
 
   return (
-    <header
-      className={cn(
-        'fixed inset-x-0 top-0 z-50 transition-all duration-500',
-        scrolled ? 'border-b border-line-soft bg-ink-900/70 backdrop-blur-xl' : 'bg-transparent',
-      )}
-    >
-      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:h-[72px] sm:px-8 md:grid md:grid-cols-[1fr_auto_1fr]">
+    <header className="fixed inset-x-0 top-0 z-50">
+      <div
+        aria-hidden
+        className={cn(
+          'pointer-events-none absolute inset-x-0 top-0 h-[calc(100%+1.5rem)] bg-gradient-to-b from-ink-900/85 via-ink-900/55 to-transparent backdrop-blur-xl transition-opacity duration-500 [mask-image:linear-gradient(#000_62%,transparent)]',
+          scrolled ? 'opacity-100' : 'opacity-0',
+        )}
+      />
+      <nav className="relative mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:h-[72px] sm:px-8 md:grid md:grid-cols-[1fr_auto_1fr]">
         <a href="#home" aria-label="Mr Balogun home" className="justify-self-start">
           <Logo />
         </a>

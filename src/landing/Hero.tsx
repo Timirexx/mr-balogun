@@ -53,7 +53,7 @@ export function Hero() {
               Your Personal AI Assistant
             </motion.p>
             <motion.h1
-              className="text-brand-gradient text-glow mt-3 text-[3.4rem] leading-[0.95] font-bold tracking-[-0.04em] sm:text-7xl lg:text-[5.6rem]"
+              className="text-brand-gradient text-glow mt-3 -mb-[0.16em] pb-[0.16em] text-[3.4rem] leading-[0.95] font-bold tracking-[-0.04em] sm:text-7xl lg:text-[5.6rem]"
               initial={{ opacity: 0, y: 24, filter: 'blur(10px)' }}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               transition={{ duration: 1, delay: 0.3, ease }}
