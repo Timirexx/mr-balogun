@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Ellipsis, X } from 'lucide-react'
 import { useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
+import { HUE } from '@/lib/hues'
 import { cn } from '@/lib/utils'
 import { MOBILE_TABS, NAV } from '../nav'
 
@@ -19,15 +20,15 @@ export function MobileNav() {
         aria-label="Main"
       >
         <ul className="grid h-16 grid-cols-5">
-          {tabs.map(({ to, label, icon: Icon, end }) => (
+          {tabs.map(({ to, label, icon: Icon, end, hue }) => (
             <li key={to}>
-              <NavLink to={to} end={end} className="relative flex h-full flex-col items-center justify-center gap-1">
+              <NavLink to={to} end={end} className={cn('relative flex h-full flex-col items-center justify-center gap-1', HUE[hue])}>
                 {({ isActive }) => (
                   <>
                     {isActive && (
-                      <motion.span layoutId="mobile-tab" className="absolute top-0 h-0.5 w-8 rounded-full bg-brand-400 shadow-[0_0_10px_rgba(58,166,255,1)]" />
+                      <motion.span layoutId="mobile-tab" className="bg-hue absolute top-0 h-0.5 w-8 rounded-full shadow-[0_0_10px_rgb(var(--hue))]" />
                     )}
-                    <Icon className={cn('size-[22px]', isActive ? 'text-brand-300 drop-shadow-[0_0_6px_rgba(58,166,255,0.8)]' : 'text-muted')} strokeWidth={1.7} />
+                    <Icon className={cn('size-[22px]', isActive ? 'text-hue drop-shadow-[0_0_6px_rgb(var(--hue)/0.8)]' : 'text-muted')} strokeWidth={1.7} />
                     <span className={cn('text-[0.66rem]', isActive ? 'text-white' : 'text-muted')}>{label}</span>
                   </>
                 )}
@@ -63,13 +64,13 @@ export function MobileNav() {
                 </button>
               </div>
               <ul className="grid grid-cols-2 gap-2.5">
-                {rest.map(({ to, label, icon: Icon }) => (
+                {rest.map(({ to, label, icon: Icon, hue }) => (
                   <li key={to}>
                     <NavLink
                       to={to}
                       onClick={() => setMore(false)}
                       className={({ isActive }) =>
-                        cn('tile flex items-center gap-3 rounded-2xl p-4', isActive && 'border-brand-400/60 bg-brand-500/10')
+                        cn('tile flex items-center gap-3 rounded-2xl p-4', HUE[hue], isActive && 'border-[rgb(var(--hue)/0.6)]')
                       }
                     >
                       <span className="icon-box size-10">

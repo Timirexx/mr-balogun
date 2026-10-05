@@ -19,7 +19,7 @@ export function PersonalizationDemo() {
 
   return (
     <div className="relative mx-auto w-full max-w-md">
-      <div className="absolute -inset-8 -z-10 rounded-full bg-brand-600/10 blur-3xl" />
+      <div className="absolute -inset-8 -z-10 rounded-full bg-[rgb(var(--hue)/0.12)] blur-3xl" />
       <div className="glass-strong edge-glow rounded-2xl p-5">
         <p className="text-sm font-medium text-white">Customize Your AI</p>
         <Tabs
@@ -68,7 +68,7 @@ export function PersonalizationDemo() {
               ]}
             />
             <div className="mt-5 flex items-center gap-3 rounded-xl border border-line bg-ink-800/60 p-3">
-              <Zap className="size-4 shrink-0 text-brand-300" />
+              <Zap className="text-hue size-4 shrink-0" />
               <p className="text-xs leading-relaxed text-muted">These settings carry straight into the app — try saving, then open Chat.</p>
             </div>
           </>

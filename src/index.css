@@ -46,6 +46,13 @@
   --color-online: #22e3a1;
   --color-danger: #ff5d73;
 
+  /* Champagne gold — reserved for Pro / premium moments */
+  --color-gold-100: #fbf0d8;
+  --color-gold-200: #f6e0b0;
+  --color-gold-300: #eecb85;
+  --color-gold-400: #e2b35d;
+  --color-gold-500: #c9953c;
+
   --radius-xl: 14px;
   --radius-2xl: 18px;
 
@@ -83,6 +90,53 @@
 :root {
   color-scheme: dark;
   --glow: 1;
+}
+
+/* ---------- Hues ----------
+   Electric blue stays the identity. Each product area also owns a signature hue;
+   components read `--hue`, so `hue-emerald` on an element (or any ancestor) recolours
+   its icon boxes, tiles, badges and accent text. */
+
+@utility hue-blue {
+  --hue: 58 166 255;
+}
+@utility hue-cyan {
+  --hue: 45 212 236;
+}
+@utility hue-violet {
+  --hue: 158 132 255;
+}
+@utility hue-emerald {
+  --hue: 52 211 153;
+}
+@utility hue-amber {
+  --hue: 250 186 64;
+}
+@utility hue-rose {
+  --hue: 251 113 133;
+}
+@utility hue-fuchsia {
+  --hue: 232 121 236;
+}
+@utility hue-gold {
+  --hue: 233 190 112;
+}
+@utility hue-slate {
+  --hue: 148 166 196;
+}
+
+@utility text-hue {
+  color: color-mix(in srgb, rgb(var(--hue, 58 166 255)) 78%, white);
+}
+
+@utility bg-hue {
+  background-color: rgb(var(--hue, 58 166 255));
+}
+
+@utility badge-hue {
+  color: color-mix(in srgb, rgb(var(--hue, 58 166 255)) 70%, white);
+  background: rgb(var(--hue, 58 166 255) / 0.12);
+  border: 1px solid rgb(var(--hue, 58 166 255) / 0.32);
 }
 
 [data-glow="low"] {
@@ -182,7 +236,9 @@
 }
 
 @utility tile {
-  background: linear-gradient(180deg, rgb(10 30 56 / 0.5), rgb(3 13 26 / 0.55));
+  background:
+    radial-gradient(120% 90% at 0% 0%, rgb(var(--hue, 58 166 255) / 0.07), transparent 60%),
+    linear-gradient(180deg, rgb(10 30 56 / 0.5), rgb(3 13 26 / 0.55));
   border: 1px solid var(--color-line);
   transition:
     border-color 0.25s ease,
@@ -190,9 +246,11 @@
     box-shadow 0.25s ease,
     transform 0.25s var(--ease-out-expo);
   &:hover {
-    border-color: var(--color-line-strong);
-    background: linear-gradient(180deg, rgb(12 38 72 / 0.6), rgb(4 16 32 / 0.65));
-    box-shadow: 0 0 calc(30px * var(--glow)) -12px rgb(6 140 252 / calc(0.5 * var(--glow)));
+    border-color: rgb(var(--hue, 66 150 245) / 0.42);
+    background:
+      radial-gradient(120% 90% at 0% 0%, rgb(var(--hue, 58 166 255) / 0.13), transparent 60%),
+      linear-gradient(180deg, rgb(12 38 72 / 0.6), rgb(4 16 32 / 0.65));
+    box-shadow: 0 0 calc(30px * var(--glow)) -12px rgb(var(--hue, 6 140 252) / calc(0.55 * var(--glow)));
   }
 }
 
@@ -203,7 +261,7 @@
     inset: -1px;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(140deg, rgb(90 180 255 / 0.55), transparent 35%, transparent 65%, rgb(6 140 252 / 0.35));
+    background: linear-gradient(140deg, rgb(110 190 255 / 0.6), transparent 34%, transparent 62%, rgb(150 120 255 / 0.45));
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -212,16 +270,31 @@
   }
 }
 
+@utility edge-gold {
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(140deg, rgb(246 224 176 / 0.75), rgb(226 179 93 / 0.15) 40%, transparent 60%, rgb(226 179 93 / 0.5));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
 @utility icon-box {
   display: grid;
   place-items: center;
   border-radius: 12px;
-  color: var(--color-brand-300);
-  background: linear-gradient(180deg, rgb(10 60 120 / 0.35), rgb(6 30 64 / 0.35));
-  border: 1px solid rgb(66 150 245 / 0.32);
+  color: color-mix(in srgb, rgb(var(--hue, 58 166 255)) 75%, white);
+  background: linear-gradient(180deg, rgb(var(--hue, 58 166 255) / 0.17), rgb(var(--hue, 58 166 255) / 0.05));
+  border: 1px solid rgb(var(--hue, 58 166 255) / 0.34);
   box-shadow:
-    inset 0 0 14px rgb(6 140 252 / 0.15),
-    0 0 calc(18px * var(--glow)) -6px rgb(6 140 252 / calc(0.55 * var(--glow)));
+    inset 0 0 14px rgb(var(--hue, 58 166 255) / 0.13),
+    0 0 calc(18px * var(--glow)) -6px rgb(var(--hue, 58 166 255) / calc(0.55 * var(--glow)));
 }
 
 /* ---------- Text ---------- */
@@ -237,7 +310,26 @@
 }
 
 @utility text-brand-gradient {
-  background: linear-gradient(100deg, #8fd0ff 0%, #47acff 40%, #1683fb 100%);
+  background: linear-gradient(100deg, #a6dcff 0%, #4fb0ff 34%, #2f86ff 62%, #7f78ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility text-hue-gradient {
+  background: linear-gradient(
+    100deg,
+    color-mix(in srgb, rgb(var(--hue, 58 166 255)) 45%, white) 0%,
+    rgb(var(--hue, 58 166 255)) 70%,
+    color-mix(in srgb, rgb(var(--hue, 58 166 255)) 80%, rgb(127 120 255)) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility text-gold-gradient {
+  background: linear-gradient(100deg, #fbf0d8 0%, #eecb85 45%, #c9953c 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -258,11 +350,11 @@
   font-family: var(--font-display);
   font-weight: 500;
   color: #fff;
-  background: linear-gradient(180deg, #2a9dff, #0a78f0);
+  background: linear-gradient(135deg, #3aaaff 0%, #1b80ff 52%, #4f62ff 100%);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.25),
-    0 0 0 1px rgb(80 170 255 / 0.4),
-    0 10px calc(34px * var(--glow)) -8px rgb(6 140 252 / calc(0.85 * var(--glow)));
+    0 0 0 1px rgb(90 160 255 / 0.4),
+    0 10px calc(34px * var(--glow)) -8px rgb(30 120 255 / calc(0.85 * var(--glow)));
   transition:
     transform 0.2s var(--ease-out-expo),
     box-shadow 0.25s ease,
@@ -280,6 +372,39 @@
   &:disabled {
     filter: grayscale(0.6) brightness(0.7);
     cursor: not-allowed;
+  }
+}
+
+@utility bubble-user {
+  color: #fff;
+  background: linear-gradient(135deg, #34a3ff 0%, #1b74ff 55%, #5a5cff 100%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.18),
+    0 10px 30px -12px rgb(40 110 255 / 0.9);
+}
+
+@utility btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: #1a1206;
+  background: linear-gradient(135deg, #fbf0d8 0%, #eecb85 45%, #d6a24a 100%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.6),
+    0 0 0 1px rgb(238 203 133 / 0.5),
+    0 10px calc(30px * var(--glow)) -10px rgb(226 179 93 / calc(0.8 * var(--glow)));
+  transition:
+    transform 0.2s var(--ease-out-expo),
+    filter 0.2s ease;
+  &:hover {
+    filter: brightness(1.06) saturate(1.05);
+  }
+  &:active {
+    transform: scale(0.97);
   }
 }
 
@@ -327,6 +452,28 @@
   }
 }
 
+@utility option-active {
+  color: #fff;
+  border-color: rgb(var(--hue, 58 166 255) / 0.8);
+  background: rgb(var(--hue, 58 166 255) / 0.12);
+  box-shadow:
+    0 0 20px -6px rgb(var(--hue, 58 166 255) / 0.8),
+    inset 0 0 12px rgb(var(--hue, 58 166 255) / 0.15);
+}
+
+@utility switch-on {
+  border-color: rgb(var(--hue, 58 166 255) / 0.75);
+  background: rgb(var(--hue, 6 140 252));
+  box-shadow: 0 0 14px -2px rgb(var(--hue, 6 140 252) / 0.8);
+}
+
+@utility chip-active {
+  color: #fff;
+  border-color: rgb(var(--hue, 58 166 255) / 0.7);
+  background: rgb(var(--hue, 58 166 255) / 0.15);
+  box-shadow: 0 0 calc(18px * var(--glow)) -6px rgb(var(--hue, 58 166 255) / calc(0.7 * var(--glow)));
+}
+
 @utility field {
   width: 100%;
   border-radius: 12px;
@@ -364,8 +511,16 @@
 @utility bg-cinematic {
   background:
     radial-gradient(1200px 600px at 75% -10%, rgb(10 80 170 / 0.22), transparent 60%),
-    radial-gradient(800px 500px at 0% 100%, rgb(6 70 150 / 0.14), transparent 60%),
+    radial-gradient(900px 520px at 100% 70%, rgb(96 70 220 / 0.08), transparent 62%),
+    radial-gradient(800px 500px at 0% 100%, rgb(8 120 160 / 0.1), transparent 60%),
     var(--color-ink-900);
+}
+
+@utility bg-aurora {
+  background:
+    radial-gradient(40% 50% at 30% 40%, rgb(30 120 255 / 0.22), transparent 70%),
+    radial-gradient(35% 45% at 70% 35%, rgb(124 92 255 / 0.18), transparent 70%),
+    radial-gradient(30% 40% at 55% 75%, rgb(34 200 230 / 0.12), transparent 70%);
 }
 
 @utility bg-grid {

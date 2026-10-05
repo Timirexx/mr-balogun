@@ -4,6 +4,7 @@ import { useMemo, useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { EmptyState, Tabs } from '@/components/ui/Controls'
 import { toast } from '@/components/ui/Toast'
+import { HUE, PRIORITY_HUE } from '@/lib/hues'
 import { startConversation } from '@/lib/store/assistant'
 import { useTasks } from '@/lib/store/tasks'
 import type { Priority, Task } from '@/lib/types'
@@ -12,18 +13,14 @@ import { Page, PageHeader, Panel } from '../components/PageHeader'
 
 type Filter = 'all' | 'today' | 'upcoming' | 'completed'
 
-const PRIORITY: Record<Priority, { label: string; cls: string }> = {
-  high: { label: 'High', cls: 'border-brand-300/60 bg-brand-400/15 text-brand-200' },
-  medium: { label: 'Medium', cls: 'border-brand-500/40 bg-brand-600/10 text-brand-300' },
-  low: { label: 'Low', cls: 'border-line text-muted' },
-}
+const PRIORITY_LABEL: Record<Priority, string> = { high: 'High', medium: 'Medium', low: 'Low' }
 
 function dueLabel(due?: string) {
   if (!due) return null
   const today = todayISO()
-  if (due === today) return { text: 'Today', cls: 'text-brand-300' }
-  if (due === addDays(today, 1)) return { text: 'Tomorrow', cls: 'text-fg-soft' }
-  if (due < today) return { text: 'Overdue', cls: 'text-danger' }
+  if (due === today) return { text: 'Today', cls: 'hue-cyan text-hue' }
+  if (due === addDays(today, 1)) return { text: 'Tomorrow', cls: 'hue-violet text-hue' }
+  if (due < today) return { text: 'Overdue', cls: 'hue-rose text-hue' }
   return { text: parseISODate(due).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }), cls: 'text-muted' }
 }
 
@@ -46,12 +43,12 @@ function ProgressRing({ value }: { value: number }) {
           initial={{ strokeDashoffset: c }}
           animate={{ strokeDashoffset: c * (1 - value) }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          style={{ filter: 'drop-shadow(0 0 6px rgba(6,140,252,0.8))' }}
+          style={{ filter: 'drop-shadow(0 0 6px rgba(52,211,153,0.7))' }}
         />
         <defs>
           <linearGradient id="ring" x1="0" x2="1">
-            <stop offset="0" stopColor="#6cc0ff" />
-            <stop offset="1" stopColor="#068cfc" />
+            <stop offset="0" stopColor="#34d399" />
+            <stop offset="1" stopColor="#2dd4ec" />
           </linearGradient>
         </defs>
       </svg>
@@ -80,14 +77,14 @@ function TaskRow({ task }: { task: Task }) {
         aria-checked={task.done}
         aria-label={task.done ? `Mark "${task.title}" as not done` : `Complete "${task.title}"`}
         className={cn(
-          'grid size-6 shrink-0 place-items-center rounded-full border transition-all',
-          task.done ? 'border-brand-400 bg-brand-500 shadow-[0_0_12px_rgba(6,140,252,0.8)]' : 'border-line-strong hover:border-brand-400',
+          'hue-emerald grid size-6 shrink-0 place-items-center rounded-full border transition-all',
+          task.done ? 'bg-hue border-[rgb(var(--hue))] shadow-[0_0_12px_rgb(var(--hue)/0.8)]' : 'border-line-strong hover:border-[rgb(var(--hue))]',
         )}
       >
         <AnimatePresence>
           {task.done && (
             <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
-              <Check className="size-3.5 text-white" strokeWidth={3} />
+              <Check className="size-3.5 text-ink-950" strokeWidth={3} />
             </motion.span>
           )}
         </AnimatePresence>
@@ -115,7 +112,10 @@ function TaskRow({ task }: { task: Task }) {
         <div className="mt-1 flex items-center gap-2 text-xs">
           {due && <span className={due.cls}>{due.text}</span>}
           {due && <span className="text-subtle">·</span>}
-          <span className={cn('rounded-md border px-1.5 py-px text-[0.65rem]', PRIORITY[task.priority].cls)}>{PRIORITY[task.priority].label}</span>
+          <span className={cn('badge-hue flex items-center gap-1 rounded-md px-1.5 py-px text-[0.65rem]', HUE[PRIORITY_HUE[task.priority]])}>
+            <span className="bg-hue size-1 rounded-full" />
+            {PRIORITY_LABEL[task.priority]}
+          </span>
         </div>
       </div>
 
@@ -201,13 +201,13 @@ export default function Tasks() {
       <Panel className="mt-6 p-3 sm:p-4">
         <form onSubmit={submit} className="flex flex-col gap-2.5 lg:flex-row lg:items-center">
           <div className="flex flex-1 items-center gap-3 rounded-xl border border-line bg-ink-850/70 px-3 focus-within:border-brand-400/60">
-            <Plus className="size-5 text-brand-300" />
+            <Plus className="hue-emerald text-hue size-5" />
             <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Add a new task…" aria-label="New task" className="h-11 flex-1 bg-transparent text-sm text-white placeholder:text-subtle focus:outline-none" />
           </div>
           <div className="flex flex-wrap gap-2.5">
             <input type="date" value={due} onChange={(e) => setDue(e.target.value)} aria-label="Due date" className="field h-11 w-auto [color-scheme:dark]" />
             <label className="relative flex items-center">
-              <Flag className="pointer-events-none absolute left-3 size-4 text-brand-300" />
+              <Flag className={cn('text-hue pointer-events-none absolute left-3 size-4', HUE[PRIORITY_HUE[priority]])} />
               <select value={priority} onChange={(e) => setPriority(e.target.value as Priority)} aria-label="Priority" className="field h-11 w-auto appearance-none pr-8 pl-9">
                 <option value="high">High</option>
                 <option value="medium">Medium</option>
@@ -218,7 +218,7 @@ export default function Tasks() {
               Add task
             </button>
             <button type="button" onClick={breakDown} className="btn-ghost h-11 px-4 text-sm" title="Ask Mr Balogun to break it down">
-              <Sparkles className="size-4 text-brand-300" /> <span className="hidden sm:inline">Break it down</span>
+              <Sparkles className="hue-violet text-hue size-4" /> <span className="hidden sm:inline">Break it down</span>
             </button>
           </div>
         </form>

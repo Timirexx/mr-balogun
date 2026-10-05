@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { useId, type ReactNode } from 'react'
 import { Check } from 'lucide-react'
+import { HUE, type Hue } from '@/lib/hues'
 import { cn } from '@/lib/utils'
 
 export function LightStreaks({ className, flip }: { className?: string; flip?: boolean }) {
@@ -14,9 +15,9 @@ export function LightStreaks({ className, flip }: { className?: string; flip?: b
     >
       <defs>
         <linearGradient id={`${id}-a`} x1="0" x2="1">
-          <stop offset="0" stopColor="#068cfc" stopOpacity="0" />
-          <stop offset="0.5" stopColor="#3aa6ff" stopOpacity="0.9" />
-          <stop offset="1" stopColor="#068cfc" stopOpacity="0" />
+          <stop offset="0" style={{ stopColor: 'rgb(var(--hue, 6 140 252))' }} stopOpacity="0" />
+          <stop offset="0.5" style={{ stopColor: 'rgb(var(--hue, 58 166 255))' }} stopOpacity="0.9" />
+          <stop offset="1" style={{ stopColor: 'rgb(var(--hue, 6 140 252))' }} stopOpacity="0" />
         </linearGradient>
         <filter id={`${id}-blur`} x="-20%" y="-50%" width="140%" height="200%">
           <feGaussianBlur stdDeviation="6" />
@@ -67,8 +68,8 @@ export function CheckList({ items }: { items: string[] }) {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.25 + i * 0.1 }}
         >
-          <span className="grid size-5 place-items-center rounded-full bg-brand-500 shadow-[0_0_12px_rgba(6,140,252,0.7)]">
-            <Check className="size-3 text-white" strokeWidth={3} />
+          <span className="bg-hue grid size-5 place-items-center rounded-full shadow-[0_0_12px_rgb(var(--hue,6_140_252)/0.7)]">
+            <Check className="size-3 text-ink-950" strokeWidth={3} />
           </span>
           {it}
         </motion.li>
@@ -89,21 +90,36 @@ interface FeatureSectionProps {
   reverse?: boolean
   className?: string
   decor?: ReactNode
+  hue?: Hue
 }
 
-export function FeatureSection({ id, index, total, title, accentWord, text, bullets, visual, reverse, className, decor }: FeatureSectionProps) {
+export function SectionLabel({ index, total }: { index: number; total: number }) {
+  return (
+    <p className="font-display flex items-center gap-2 text-sm font-medium tracking-wide">
+      <span className="bg-hue h-px w-6 shadow-[0_0_8px_rgb(var(--hue))]" />
+      <span className="text-hue">{String(index).padStart(2, '0')}</span>
+      <span className="text-subtle">/ {String(total).padStart(2, '0')}</span>
+    </p>
+  )
+}
+
+export function FeatureSection({ id, index, total, title, accentWord, text, bullets, visual, reverse, className, decor, hue = 'blue' }: FeatureSectionProps) {
   const parts = accentWord ? title.split(accentWord) : [title]
   return (
-    <section id={id} className={cn('relative scroll-mt-20 overflow-hidden border-t border-line-soft', className)}>
+    <section id={id} className={cn('relative scroll-mt-20 overflow-hidden border-t border-line-soft', HUE[hue], className)}>
+      <div
+        className={cn(
+          'pointer-events-none absolute top-1/2 hidden size-[42rem] -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(var(--hue)/0.11),transparent)] lg:block',
+          reverse ? 'left-[-8%]' : 'right-[-8%]',
+        )}
+      />
       {decor}
       <div className={cn('relative mx-auto grid max-w-6xl items-center gap-12 px-5 py-20 sm:px-8 md:py-28 lg:grid-cols-2 lg:gap-16')}>
         <Reveal className={cn(reverse && 'lg:order-2')}>
-          <p className="font-display text-sm font-medium tracking-wide text-brand-400">
-            {String(index).padStart(2, '0')} <span className="text-subtle">/ {String(total).padStart(2, '0')}</span>
-          </p>
+          <SectionLabel index={index} total={total} />
           <h2 className="mt-3 text-3xl font-semibold tracking-[-0.02em] text-white sm:text-4xl">
             {parts[0]}
-            {accentWord && <span className="font-accent text-brand-gradient">{accentWord}</span>}
+            {accentWord && <span className="font-accent text-hue-gradient">{accentWord}</span>}
             {parts[1]}
           </h2>
           <p className="mt-4 max-w-md text-[1.02rem] leading-relaxed text-muted">{text}</p>

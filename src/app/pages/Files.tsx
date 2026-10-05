@@ -10,6 +10,7 @@ import { sendMessage } from '@/lib/ai/engine'
 import { useChat } from '@/lib/store/chat'
 import { downloadFile, isImage, isTextLike, useFiles, useFileUrl } from '@/lib/store/files'
 import type { StoredFile } from '@/lib/types'
+import { HUE } from '@/lib/hues'
 import { cn, formatBytes, timeAgo } from '@/lib/utils'
 import { Page, PageHeader, Panel } from '../components/PageHeader'
 
@@ -17,9 +18,14 @@ type Kind = 'all' | 'documents' | 'images' | 'other'
 
 const kindOf = (f: StoredFile): Exclude<Kind, 'all'> => (isImage(f) ? 'images' : isTextLike(f) || /pdf|word|document|sheet|presentation/.test(f.type) ? 'documents' : 'other')
 
+const CODE = /\.(js|ts|tsx|jsx|py|css|html?|json)$/i
+
+const fileHue = (f: StoredFile) =>
+  HUE[isImage(f) ? 'fuchsia' : CODE.test(f.name) ? 'cyan' : isTextLike(f) || /pdf|word|document/.test(f.type) ? 'blue' : 'amber']
+
 function FileIcon({ f, className }: { f: StoredFile; className?: string }) {
   if (isImage(f)) return <FileImage className={className} />
-  if (/\.(js|ts|tsx|jsx|py|css|html?|json)$/i.test(f.name)) return <FileCode className={className} />
+  if (CODE.test(f.name)) return <FileCode className={className} />
   if (isTextLike(f) || /pdf|word|document/.test(f.type)) return <FileText className={className} />
   return <File className={className} />
 }
@@ -28,7 +34,7 @@ function Thumb({ f }: { f: StoredFile }) {
   const url = useFileUrl(isImage(f) ? f : undefined)
   if (url) return <img src={url} alt="" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
   return (
-    <div className="grid h-full w-full place-items-center bg-[radial-gradient(circle_at_50%_40%,rgba(6,140,252,0.18),transparent_70%)]">
+    <div className="grid h-full w-full place-items-center bg-[radial-gradient(circle_at_50%_40%,rgb(var(--hue)/0.2),transparent_70%)]">
       <span className="icon-box size-14 rounded-2xl">
         <FileIcon f={f} className="size-7" />
       </span>
@@ -150,7 +156,7 @@ export default function Files() {
             drag ? 'border-brand-400 bg-brand-500/10 shadow-[0_0_50px_-10px_rgba(6,140,252,0.8)]' : 'border-line-strong/60 bg-ink-850/40 hover:border-brand-400/60 hover:bg-brand-500/5',
           )}
         >
-          <motion.span animate={drag ? { y: -6, scale: 1.08 } : { y: 0, scale: 1 }} className="icon-box size-14 rounded-2xl">
+          <motion.span animate={drag ? { y: -6, scale: 1.08 } : { y: 0, scale: 1 }} className="icon-box hue-amber size-14 rounded-2xl">
             <UploadCloud className="size-7" />
           </motion.span>
           <p className="mt-4 text-sm font-medium text-white">{busy ? 'Uploading…' : drag ? 'Drop to upload' : 'Drag & drop files here'}</p>
@@ -158,7 +164,7 @@ export default function Files() {
         </div>
         <Panel className="flex flex-col justify-center p-5">
           <div className="flex items-center gap-3">
-            <span className="icon-box size-10">
+            <span className="icon-box hue-amber size-10">
               <HardDrive className="size-5" />
             </span>
             <div>
@@ -167,7 +173,7 @@ export default function Files() {
             </div>
           </div>
           <div className="mt-4 h-2 overflow-hidden rounded-full bg-ink-700">
-            <motion.div className="h-full rounded-full bg-gradient-to-r from-brand-600 to-brand-300 shadow-[0_0_10px_rgba(6,140,252,0.8)]" initial={{ width: 0 }} animate={{ width: `${Math.max(2, (used / quota) * 100)}%` }} />
+            <motion.div className="h-full rounded-full bg-gradient-to-r from-amber-500 via-gold-300 to-gold-100 shadow-[0_0_10px_rgba(233,190,112,0.7)]" initial={{ width: 0 }} animate={{ width: `${Math.max(2, (used / quota) * 100)}%` }} />
           </div>
           <p className="mt-2 text-xs text-muted">
             {formatBytes(used)} of {formatBytes(quota)} · {files.length} files
@@ -200,7 +206,7 @@ export default function Files() {
         <motion.ul layout className="mt-4 grid grid-cols-1 gap-4 min-[480px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
           <AnimatePresence initial={false}>
             {list.map((f) => (
-              <motion.li key={f.id} layout initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }} className="tile group overflow-hidden rounded-2xl">
+              <motion.li key={f.id} layout initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }} className={cn('tile group overflow-hidden rounded-2xl', fileHue(f))}>
                 <button onClick={() => setPreview(f)} className="block aspect-[16/9] w-full overflow-hidden border-b border-line" aria-label={`Preview ${f.name}`}>
                   <Thumb f={f} />
                 </button>
@@ -213,7 +219,7 @@ export default function Files() {
                   </p>
                   <div className="mt-3 flex items-center gap-1">
                     <button onClick={() => askAbout(f)} className="btn-ghost mr-auto h-8 rounded-lg px-2.5 text-xs">
-                      <Sparkles className="size-3.5 text-brand-300" /> {isTextLike(f) ? 'Summarize' : 'Ask about it'}
+                      <Sparkles className="hue-violet text-hue size-3.5" /> {isTextLike(f) ? 'Summarize' : 'Ask about it'}
                     </button>
                     <button onClick={() => setPreview(f)} className="grid size-8 place-items-center rounded-lg text-muted hover:bg-white/5 hover:text-white" aria-label={`Preview ${f.name}`}>
                       <Eye className="size-4" />

@@ -27,6 +27,7 @@ import { regenerate, sendMessage, stopStreaming, useStreaming } from '@/lib/ai/e
 import { lastPreview, sortConversations, useChat } from '@/lib/store/chat'
 import { useSettings } from '@/lib/store/settings'
 import type { Conversation, StoredFile } from '@/lib/types'
+import { HUE } from '@/lib/hues'
 import { cn, firstName, timeAgo } from '@/lib/utils'
 import { Composer, type ComposerHandle } from '../components/Composer'
 import { MessageList } from '../components/MessageList'
@@ -205,10 +206,10 @@ function ConversationList({ onNavigate }: { onNavigate?: () => void }) {
 }
 
 const SUGGESTIONS = [
-  { icon: CalendarDays, title: 'Plan my day', text: 'Build a schedule from my tasks', prompt: 'Plan my day' },
-  { icon: Mail, title: 'Draft an email', text: 'Follow up with a client', prompt: 'Write an email to follow up with a client about the proposal' },
-  { icon: Lightbulb, title: 'Brainstorm ideas', text: 'For a weekend side project', prompt: 'Give me ideas for a weekend side project' },
-  { icon: FileUp, title: 'Summarize a file', text: 'Attach a .txt or .md file', prompt: null },
+  { icon: CalendarDays, title: 'Plan my day', text: 'Build a schedule from my tasks', prompt: 'Plan my day', hue: HUE.emerald },
+  { icon: Mail, title: 'Draft an email', text: 'Follow up with a client', prompt: 'Write an email to follow up with a client about the proposal', hue: HUE.fuchsia },
+  { icon: Lightbulb, title: 'Brainstorm ideas', text: 'For a weekend side project', prompt: 'Give me ideas for a weekend side project', hue: HUE.amber },
+  { icon: FileUp, title: 'Summarize a file', text: 'Attach a .txt or .md file', prompt: null, hue: HUE.cyan },
 ]
 
 function EmptyChat({ onPick, onAttach }: { onPick: (p: string) => void; onAttach: () => void }) {
@@ -233,7 +234,7 @@ function EmptyChat({ onPick, onAttach }: { onPick: (p: string) => void; onAttach
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 + i * 0.06 }}
             onClick={() => (s.prompt ? onPick(s.prompt) : onAttach())}
-            className="tile group flex flex-col items-start gap-2.5 rounded-2xl p-3.5 text-left sm:flex-row sm:items-center sm:gap-3 sm:p-4"
+            className={cn('tile group flex flex-col items-start gap-2.5 rounded-2xl p-3.5 text-left sm:flex-row sm:items-center sm:gap-3 sm:p-4', s.hue)}
           >
             <span className="icon-box size-9 shrink-0 sm:size-10">
               <s.icon className="size-[18px] sm:size-5" />

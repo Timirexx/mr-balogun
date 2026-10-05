@@ -2,6 +2,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { History, Maximize2, MoreHorizontal, Search } from 'lucide-react'
 import { useState } from 'react'
 import { AIAvatar } from '@/components/ui/Avatar'
+import { HUE } from '@/lib/hues'
+import { cn } from '@/lib/utils'
 
 const ITEMS = [
   { title: 'Project planning', time: '2 hours ago' },
@@ -11,14 +13,18 @@ const ITEMS = [
   { title: 'Weekly review', time: '4 days ago' },
 ]
 
-const REMEMBERED = ['Prefers mornings', 'Reading 12 books', 'Tech & productivity brand']
+const REMEMBERED = [
+  { label: 'Prefers mornings', hue: HUE.fuchsia },
+  { label: 'Reading 12 books', hue: HUE.emerald },
+  { label: 'Tech & productivity brand', hue: HUE.blue },
+]
 
 export function MemoryDemo() {
   const [q, setQ] = useState('')
   const list = ITEMS.filter((i) => i.title.toLowerCase().includes(q.toLowerCase()))
   return (
     <div className="relative mx-auto w-full max-w-md">
-      <div className="absolute -inset-8 -z-10 rounded-full bg-brand-500/10 blur-3xl" />
+      <div className="absolute -inset-8 -z-10 rounded-full bg-[rgb(var(--hue)/0.12)] blur-3xl" />
       <div className="glass-strong edge-glow rounded-2xl p-4">
         <div className="mb-3 flex items-center justify-between px-1">
           <div className="flex items-center gap-2">
@@ -27,7 +33,7 @@ export function MemoryDemo() {
           </div>
           <div className="flex gap-1 text-subtle">
             <MoreHorizontal className="size-4" />
-            <Maximize2 className="size-4 text-brand-300" />
+            <Maximize2 className="text-hue size-4" />
           </div>
         </div>
         <label className="flex items-center gap-2 rounded-xl border border-line bg-ink-850/80 px-3 py-2 focus-within:border-brand-400/60">
@@ -65,8 +71,8 @@ export function MemoryDemo() {
           <p className="mb-2 px-1 text-[0.68rem] tracking-wide text-subtle uppercase">Remembered</p>
           <div className="flex flex-wrap gap-1.5">
             {REMEMBERED.map((r) => (
-              <span key={r} className="rounded-full border border-brand-400/30 bg-brand-500/10 px-2.5 py-1 text-[0.68rem] text-brand-200">
-                {r}
+              <span key={r.label} className={cn('badge-hue rounded-full px-2.5 py-1 text-[0.68rem]', r.hue)}>
+                {r.label}
               </span>
             ))}
           </div>

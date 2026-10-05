@@ -6,6 +6,7 @@ import { Modal } from '@/components/ui/Modal'
 import { toast } from '@/components/ui/Toast'
 import { guessCategory, useMemories } from '@/lib/store/memories'
 import type { Memory as MemoryItem, MemoryCategory } from '@/lib/types'
+import { HUE, MEMORY_HUE } from '@/lib/hues'
 import { cn, timeAgo } from '@/lib/utils'
 import { Page, PageHeader, Panel } from '../components/PageHeader'
 
@@ -23,9 +24,9 @@ function MemoryCard({ m }: { m: MemoryItem }) {
   const [text, setText] = useState(m.content)
 
   return (
-    <motion.li layout initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.96 }} className="tile group flex flex-col rounded-2xl p-4">
+    <motion.li layout initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.96 }} className={cn('tile group flex flex-col rounded-2xl p-4', HUE[MEMORY_HUE[m.category]])}>
       <div className="flex items-center justify-between">
-        <span className="rounded-full border border-brand-400/30 bg-brand-500/10 px-2.5 py-0.5 text-[0.68rem] text-brand-200 capitalize">{m.category}</span>
+        <span className="badge-hue rounded-full px-2.5 py-0.5 text-[0.68rem] capitalize">{m.category}</span>
         <div className="flex gap-0.5 transition-opacity md:opacity-0 md:group-hover:opacity-100">
           <button onClick={() => setEditing(true)} className="grid size-7 place-items-center rounded-lg text-muted hover:bg-white/5 hover:text-white" aria-label="Edit memory">
             <Pencil className="size-3.5" />
@@ -99,7 +100,7 @@ export default function Memory() {
         subtitle="What Mr Balogun remembers about you — always in your control."
         actions={
           <Panel className="flex items-center gap-3 px-4 py-2.5">
-            <Brain className={cn('size-5', enabled ? 'text-brand-300' : 'text-subtle')} />
+            <Brain className={cn('hue-violet size-5', enabled ? 'text-hue' : 'text-subtle')} />
             <span className="text-sm text-fg-soft">{enabled ? 'Memory on' : 'Memory paused'}</span>
             <Switch
               checked={enabled}
@@ -134,7 +135,7 @@ export default function Memory() {
                     type="button"
                     key={c.value}
                     onClick={() => setCategory(c.value)}
-                    className={cn('chip shrink-0 px-3 py-1 text-xs', category === c.value && 'border-brand-400/70 bg-brand-500/15 text-white')}
+                    className={cn('chip shrink-0 px-3 py-1 text-xs', c.value !== 'auto' && HUE[MEMORY_HUE[c.value]], category === c.value && 'chip-active')}
                   >
                     {c.label}
                   </button>
@@ -148,7 +149,7 @@ export default function Memory() {
         </Panel>
         <Panel className="p-5">
           <div className="flex items-center gap-3">
-            <span className="icon-box size-10">
+            <span className="icon-box hue-violet size-10">
               <ShieldCheck className="size-5" />
             </span>
             <p className="text-sm font-medium text-white">How memory works</p>
@@ -166,7 +167,8 @@ export default function Memory() {
           {[{ value: 'all' as const, label: 'All' }, ...CATEGORIES].map((c) => {
             const count = c.value === 'all' ? memories.length : memories.filter((m) => m.category === c.value).length
             return (
-              <button key={c.value} onClick={() => setFilter(c.value)} className={cn('chip shrink-0', filter === c.value && 'border-brand-400/70 bg-brand-500/15 text-white')}>
+              <button key={c.value} onClick={() => setFilter(c.value)} className={cn('chip shrink-0', c.value !== 'all' && HUE[MEMORY_HUE[c.value]], filter === c.value && 'chip-active')}>
+                {c.value !== 'all' && <span className="bg-hue size-1.5 rounded-full" />}
                 {c.label} <span className="text-subtle">{count}</span>
               </button>
             )

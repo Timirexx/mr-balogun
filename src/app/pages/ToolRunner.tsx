@@ -9,7 +9,8 @@ import { runTool } from '@/lib/ai/engine'
 import { logActivity } from '@/lib/store/activity'
 import { titleFrom, useChat } from '@/lib/store/chat'
 import { isTextLike, useFiles } from '@/lib/store/files'
-import { getTool } from '@/lib/tools/registry'
+import { getTool, toolHue } from '@/lib/tools/registry'
+import { cn } from '@/lib/utils'
 import type { StoredFile } from '@/lib/types'
 import { Page, Panel } from '../components/PageHeader'
 
@@ -77,7 +78,7 @@ export default function ToolRunner() {
       </Link>
 
       <div className="mt-4 flex items-center gap-4">
-        <span className="icon-box size-14 rounded-2xl">
+        <span className={cn('icon-box size-14 rounded-2xl', toolHue(tool))}>
           <tool.icon className="size-7" strokeWidth={1.6} />
         </span>
         <div>

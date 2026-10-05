@@ -99,7 +99,7 @@ export default function Calendar() {
         actions={
           <>
             <button onClick={() => ask('Plan my day')} className="btn-ghost px-4 py-2.5 text-sm">
-              <Sparkles className="size-4 text-brand-300" /> Plan with AI
+              <Sparkles className="hue-violet text-hue size-4" /> Plan with AI
             </button>
             <button onClick={() => setAdding(true)} className="btn-primary rounded-xl px-4 py-2.5 text-sm">
               <CalendarPlus className="size-4" /> New event
@@ -152,7 +152,7 @@ export default function Calendar() {
                   aria-pressed={isSel}
                   className={cn(
                     'relative flex aspect-square flex-col rounded-xl border p-1 text-left transition-all sm:aspect-auto sm:min-h-24 sm:p-2',
-                    isSel ? 'border-brand-400/80 bg-brand-500/12 shadow-[0_0_24px_-8px_rgba(6,140,252,0.9)]' : 'border-line-soft hover:border-line-strong hover:bg-white/[0.02]',
+                    isSel ? 'border-cyan-400/70 bg-cyan-400/10 shadow-[0_0_24px_-8px_rgba(45,212,236,0.8)]' : 'border-line-soft hover:border-line-strong hover:bg-white/[0.02]',
                     !inMonth && 'opacity-35',
                   )}
                 >
@@ -166,17 +166,17 @@ export default function Calendar() {
                   </span>
                   <span className="mt-1 hidden w-full space-y-1 sm:block">
                     {info?.events.slice(0, 2).map((e) => (
-                      <span key={e.id} className="block truncate rounded-md border-l-2 border-brand-400 bg-brand-500/10 px-1.5 py-0.5 text-[0.65rem] text-brand-100">
+                      <span key={e.id} className="block truncate rounded-md border-l-2 border-cyan-400 bg-cyan-400/10 px-1.5 py-0.5 text-[0.65rem] text-cyan-100">
                         {e.title}
                       </span>
                     ))}
                     {(info?.events.length ?? 0) > 2 && <span className="block text-[0.62rem] text-muted">+{info!.events.length - 2} more</span>}
                   </span>
                   <span className="absolute right-1.5 bottom-1.5 flex gap-0.5 sm:hidden">
-                    {!!info?.events.length && <span className="size-1.5 rounded-full bg-brand-400" />}
-                    {pendingTasks > 0 && <span className="size-1.5 rounded-full bg-brand-200" />}
+                    {!!info?.events.length && <span className="size-1.5 rounded-full bg-cyan-400" />}
+                    {pendingTasks > 0 && <span className="size-1.5 rounded-full bg-emerald-400" />}
                   </span>
-                  {pendingTasks > 0 && <span className="absolute top-2 right-2 hidden text-[0.6rem] text-brand-200 sm:block">{pendingTasks} task{pendingTasks > 1 ? 's' : ''}</span>}
+                  {pendingTasks > 0 && <span className="absolute top-2 right-2 hidden text-[0.6rem] text-emerald-300 sm:block">{pendingTasks} task{pendingTasks > 1 ? 's' : ''}</span>}
                 </button>
               )
             })}
@@ -195,7 +195,7 @@ export default function Calendar() {
               <AnimatePresence initial={false}>
                 {day.events.map((e) => (
                   <motion.li key={e.id} layout initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -10 }} className="group flex gap-3 rounded-xl border border-line bg-ink-800/50 p-3">
-                    <span className="w-1 shrink-0 rounded-full bg-gradient-to-b from-brand-300 to-brand-600 shadow-[0_0_8px_rgba(6,140,252,0.7)]" />
+                    <span className="w-1 shrink-0 rounded-full bg-gradient-to-b from-cyan-300 to-brand-500 shadow-[0_0_8px_rgba(45,212,236,0.7)]" />
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm text-white">{e.title}</p>
                       <p className="mt-0.5 flex items-center gap-1 text-xs text-muted">
@@ -228,8 +228,8 @@ export default function Calendar() {
               {day.tasks.map((t) => (
                 <li key={t.id}>
                   <button onClick={() => toggle(t.id)} className="flex w-full items-center gap-3 rounded-xl px-2 py-2 text-left hover:bg-white/[0.03]">
-                    <span className={cn('grid size-5 shrink-0 place-items-center rounded-full border', t.done ? 'border-brand-400 bg-brand-500' : 'border-line-strong')}>
-                      {t.done && <Check className="size-3 text-white" strokeWidth={3} />}
+                    <span className={cn('grid size-5 shrink-0 place-items-center rounded-full border', t.done ? 'border-emerald-400 bg-emerald-400' : 'border-line-strong')}>
+                      {t.done && <Check className="size-3 text-ink-950" strokeWidth={3} />}
                     </span>
                     <span className={cn('truncate text-sm', t.done ? 'text-subtle line-through' : 'text-fg-soft')}>{t.title}</span>
                   </button>
@@ -239,7 +239,7 @@ export default function Calendar() {
           )}
 
           <button onClick={() => setAdding(true)} className="btn-ghost mt-6 w-full py-2.5 text-sm">
-            <CalendarPlus className="size-4 text-brand-300" /> Add event on this day
+            <CalendarPlus className="hue-cyan text-hue size-4" /> Add event on this day
           </button>
         </Panel>
       </div>

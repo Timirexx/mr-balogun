@@ -6,6 +6,7 @@ import { AIAvatar } from '@/components/ui/Avatar'
 import { Waveform } from '@/components/ui/Waveform'
 import { regenerate, sendMessage, stopStreaming, useStreaming } from '@/lib/ai/engine'
 import { useAssistant } from '@/lib/store/assistant'
+import { HUE } from '@/lib/hues'
 import { useChat } from '@/lib/store/chat'
 import { useSettings } from '@/lib/store/settings'
 import type { StoredFile } from '@/lib/types'
@@ -15,10 +16,10 @@ import { Composer, type ComposerHandle } from './Composer'
 import { MessageList } from './MessageList'
 
 const QUICK = [
-  { icon: CalendarDays, label: 'Plan my day', prompt: 'Plan my day' },
-  { icon: PenLine, label: 'Write something', prompt: 'Create something' },
-  { icon: ScanSearch, label: 'Research a topic', prompt: 'Research the future of personal AI assistants' },
-  { icon: Lightbulb, label: 'Help me solve a problem', prompt: 'Help me solve a problem' },
+  { icon: CalendarDays, label: 'Plan my day', prompt: 'Plan my day', hue: HUE.emerald },
+  { icon: PenLine, label: 'Write something', prompt: 'Create something', hue: HUE.violet },
+  { icon: ScanSearch, label: 'Research a topic', prompt: 'Research the future of personal AI assistants', hue: HUE.cyan },
+  { icon: Lightbulb, label: 'Help me solve a problem', prompt: 'Help me solve a problem', hue: HUE.amber },
 ]
 
 export function FloatingAssistant() {
@@ -174,8 +175,8 @@ export function FloatingAssistant() {
                   <ul className="mt-6 space-y-2">
                     {QUICK.map((q) => (
                       <li key={q.label}>
-                        <button onClick={() => send(q.prompt)} className="tile flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-left text-sm text-fg-soft hover:text-white">
-                          <q.icon className="size-4 text-brand-300" />
+                        <button onClick={() => send(q.prompt)} className={cn('tile flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-left text-sm text-fg-soft hover:text-white', q.hue)}>
+                          <q.icon className="text-hue size-4" />
                           {q.label}
                         </button>
                       </li>

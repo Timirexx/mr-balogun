@@ -11,7 +11,7 @@ export function Switch({ checked, onChange, label }: { checked: boolean; onChang
       onClick={() => onChange(!checked)}
       className={cn(
         'relative h-6 w-11 shrink-0 rounded-full border transition-colors',
-        checked ? 'border-brand-400/70 bg-brand-500 shadow-[0_0_14px_-2px_rgba(6,140,252,0.8)]' : 'border-line bg-ink-750',
+        checked ? 'switch-on' : 'border-line bg-ink-750',
       )}
     >
       <motion.span
@@ -51,12 +51,10 @@ export function OptionCards<T extends string>({
             aria-pressed={active}
             className={cn(
               'flex flex-col items-center gap-1.5 rounded-xl border px-2 py-3 text-xs transition-all',
-              active
-                ? 'border-brand-400/80 bg-brand-500/12 text-white shadow-[0_0_20px_-6px_rgba(6,140,252,0.8),inset_0_0_12px_rgba(6,140,252,0.15)]'
-                : 'border-line bg-ink-800/60 text-muted hover:border-line-strong hover:text-fg-soft',
+              active ? 'option-active' : 'border-line bg-ink-800/60 text-muted hover:border-line-strong hover:text-fg-soft',
             )}
           >
-            {o.icon && <span className={active ? 'text-brand-300' : ''}>{o.icon}</span>}
+            {o.icon && <span className={active ? 'text-hue' : ''}>{o.icon}</span>}
             {o.label}
           </button>
         )

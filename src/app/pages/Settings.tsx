@@ -33,17 +33,18 @@ import { useFiles } from '@/lib/store/files'
 import { useMemories } from '@/lib/store/memories'
 import { useSettings } from '@/lib/store/settings'
 import { useTasks } from '@/lib/store/tasks'
+import { HUE } from '@/lib/hues'
 import { cn } from '@/lib/utils'
 import { canListen, canSpeak, speak, useVoices } from '@/lib/voice'
 import { Page, PageHeader, Panel } from '../components/PageHeader'
 
 const SECTIONS = [
-  { id: 'profile', label: 'Profile', icon: UserRound },
-  { id: 'ai', label: 'AI Personality', icon: Wand2 },
-  { id: 'voice', label: 'Voice', icon: Volume2 },
-  { id: 'appearance', label: 'Appearance', icon: Palette },
-  { id: 'notifications', label: 'Notifications', icon: Bell },
-  { id: 'data', label: 'Data & Privacy', icon: Database },
+  { id: 'profile', label: 'Profile', icon: UserRound, hue: HUE.blue },
+  { id: 'ai', label: 'AI Personality', icon: Wand2, hue: HUE.violet },
+  { id: 'voice', label: 'Voice', icon: Volume2, hue: HUE.cyan },
+  { id: 'appearance', label: 'Appearance', icon: Palette, hue: HUE.fuchsia },
+  { id: 'notifications', label: 'Notifications', icon: Bell, hue: HUE.amber },
+  { id: 'data', label: 'Data & Privacy', icon: Database, hue: HUE.emerald },
 ] as const
 
 type SectionId = (typeof SECTIONS)[number]['id']
@@ -185,12 +186,12 @@ function VoiceSection() {
           value={s.voiceRate}
           onChange={(e) => s.update({ voiceRate: Number(e.target.value) })}
           aria-label="Speaking rate"
-          className="w-56 accent-brand-500"
+          className="w-56 accent-cyan-400"
         />
       </Row>
       <Row title="Test voice">
         <button onClick={() => speak(`Hi, I'm Mr Balogun. This is how I sound.`)} disabled={!canSpeak()} className="btn-ghost px-4 py-2 text-sm">
-          <Play className="size-4 text-brand-300" /> Play sample
+          <Play className="text-hue size-4" /> Play sample
         </button>
       </Row>
       <Row title="Voice input" text={canListen() ? 'Your browser supports speech recognition.' : 'Use Chrome or Edge for voice input.'}>
@@ -295,7 +296,7 @@ function DataSection() {
       </div>
       <Row title="Export your data" text="Download conversations, tasks, memories and settings as JSON.">
         <button onClick={exportData} className="btn-ghost px-4 py-2 text-sm">
-          <Download className="size-4 text-brand-300" /> Export
+          <Download className="text-hue size-4" /> Export
         </button>
       </Row>
       <Row title="Reset everything" text="Delete all data and restore the starting workspace.">
@@ -352,16 +353,22 @@ export default function Settings() {
               onClick={() => setParams({ tab: s.id }, { replace: true })}
               className={cn(
                 'flex shrink-0 items-center gap-3 rounded-xl border px-3.5 py-2.5 text-sm transition-colors',
-                tab === s.id ? 'border-brand-500/60 bg-brand-500/12 text-white shadow-[0_0_20px_-8px_rgba(6,140,252,0.9)]' : 'border-transparent text-fg-soft hover:bg-white/[0.03] hover:text-white',
+                s.hue,
+                tab === s.id ? 'chip-active' : 'border-transparent text-fg-soft hover:bg-white/[0.03] hover:text-white',
               )}
             >
-              <s.icon className={cn('size-[18px]', tab === s.id ? 'text-brand-300' : 'text-muted')} />
+              <s.icon className={cn('text-hue size-[18px]', tab !== s.id && 'opacity-60')} />
               {s.label}
             </button>
           ))}
         </nav>
-        <Panel className="p-5 sm:p-6">
-          <h2 className="mb-5 text-lg font-semibold text-white">{current.label}</h2>
+        <Panel className={cn('p-5 sm:p-6', current.hue)}>
+          <h2 className={cn('mb-5 flex items-center gap-3 text-lg font-semibold text-white', current.hue)}>
+            <span className="icon-box size-9 rounded-xl">
+              <current.icon className="size-[18px]" />
+            </span>
+            {current.label}
+          </h2>
           {RENDER[tab]()}
         </Panel>
       </div>

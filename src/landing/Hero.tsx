@@ -6,12 +6,12 @@ import { FollowingFace } from './FollowingFace'
 const ease = [0.16, 1, 0.3, 1] as const
 
 const SPARKS = [
-  { l: '58%', t: '16%', s: 3, d: 0 },
-  { l: '92%', t: '30%', s: 2, d: 1.2 },
-  { l: '50%', t: '64%', s: 2, d: 0.6 },
-  { l: '96%', t: '58%', s: 3, d: 2 },
-  { l: '72%', t: '8%', s: 2, d: 1.6 },
-  { l: '46%', t: '32%', s: 2, d: 2.4 },
+  { l: '58%', t: '16%', s: 3, d: 0, hue: 'hue-blue' },
+  { l: '92%', t: '30%', s: 2, d: 1.2, hue: 'hue-violet' },
+  { l: '50%', t: '64%', s: 2, d: 0.6, hue: 'hue-cyan' },
+  { l: '96%', t: '58%', s: 3, d: 2, hue: 'hue-blue' },
+  { l: '72%', t: '8%', s: 2, d: 1.6, hue: 'hue-cyan' },
+  { l: '46%', t: '32%', s: 2, d: 2.4, hue: 'hue-violet' },
 ]
 
 export function Hero() {
@@ -29,13 +29,15 @@ export function Hero() {
           transition={{ duration: 1.6, ease }}
         >
           <div className="absolute top-[4%] left-1/2 h-[62%] w-[70%] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(10,90,200,0.38),rgba(6,50,120,0.16)_55%,transparent)] blur-2xl" />
+          <div className="absolute top-[22%] right-[2%] h-[48%] w-[46%] rounded-full bg-[radial-gradient(closest-side,rgba(124,92,255,0.22),transparent)] blur-3xl" />
+          <div className="absolute top-[30%] left-[6%] h-[40%] w-[36%] rounded-full bg-[radial-gradient(closest-side,rgba(34,200,230,0.14),transparent)] blur-3xl" />
           <FollowingFace imgClassName="[mask-composite:intersect] [mask-image:radial-gradient(ellipse_78%_66%_at_50%_38%,#000_55%,transparent_100%),linear-gradient(#000_58%,transparent)] md:[mask-image:radial-gradient(ellipse_52%_68%_at_50%_40%,#000_60%,transparent_100%),linear-gradient(#000_68%,transparent_97%)]" />
         </motion.div>
 
         {SPARKS.map((p, i) => (
           <motion.span
             key={i}
-            className="absolute -z-10 hidden rounded-full bg-brand-300 shadow-[0_0_10px_3px_rgba(58,166,255,0.6)] md:block"
+            className={`bg-hue absolute -z-10 hidden rounded-full shadow-[0_0_10px_3px_rgb(var(--hue)/0.6)] md:block ${p.hue}`}
             style={{ left: p.l, top: p.t, width: p.s, height: p.s }}
             animate={{ opacity: [0.15, 1, 0.15], scale: [0.8, 1.3, 0.8] }}
             transition={{ duration: 3.5, repeat: Infinity, delay: p.d }}

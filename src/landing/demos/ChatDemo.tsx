@@ -72,7 +72,7 @@ export function ChatDemo() {
 
   return (
     <div ref={ref} className="relative mx-auto w-full max-w-md">
-      <div className="absolute -inset-10 -z-10 rounded-full bg-brand-500/10 blur-3xl" />
+      <div className="absolute -inset-10 -z-10 rounded-full bg-[rgb(var(--hue)/0.12)] blur-3xl" />
       <div className="glass-strong edge-glow overflow-hidden rounded-2xl">
         <div className="flex items-center justify-between border-b border-line px-4 py-3">
           <div className="flex items-center gap-2.5">
@@ -99,7 +99,7 @@ export function ChatDemo() {
             {msgs.map((m) =>
               m.role === 'user' ? (
                 <motion.div key={m.id} initial={{ opacity: 0, y: 10, scale: 0.96 }} animate={{ opacity: 1, y: 0, scale: 1 }} className="flex justify-end">
-                  <p className="max-w-[80%] rounded-2xl rounded-br-md bg-gradient-to-b from-brand-500 to-brand-600 px-3.5 py-2 text-sm text-white shadow-[0_8px_24px_-8px_rgba(6,140,252,0.8)]">
+                  <p className="max-w-[80%] rounded-2xl rounded-br-md bubble-user px-3.5 py-2 text-sm">
                     {m.text}
                   </p>
                 </motion.div>

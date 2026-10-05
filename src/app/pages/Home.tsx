@@ -23,6 +23,7 @@ import { useMemo, useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AIAvatar } from '@/components/ui/Avatar'
 import { Modal } from '@/components/ui/Modal'
+import { ACTIVITY_HUE, AREA_HUE, HUE, type Hue } from '@/lib/hues'
 import { useActivity } from '@/lib/store/activity'
 import { startConversation, useAssistant } from '@/lib/store/assistant'
 import { lastPreview, sortConversations, useChat } from '@/lib/store/chat'
@@ -41,18 +42,18 @@ const rise = (i: number) => ({
   transition: { duration: 0.6, delay: 0.05 + i * 0.06, ease },
 })
 
-const CHIPS = [
-  { label: 'Plan my day', prompt: 'Plan my day' },
-  { label: 'Summarize this', to: '/app/tools/summarize' },
-  { label: 'Create something', prompt: 'Create something' },
-  { label: 'Help me decide', prompt: 'Help me decide' },
+const CHIPS: { label: string; hue: Hue; prompt?: string; to?: string }[] = [
+  { label: 'Plan my day', hue: 'emerald', prompt: 'Plan my day' },
+  { label: 'Summarize this', hue: 'cyan', to: '/app/tools/summarize' },
+  { label: 'Create something', hue: 'violet', prompt: 'Create something' },
+  { label: 'Help me decide', hue: 'amber', prompt: 'Help me decide' },
 ]
 
-const FEATURES: { to: string; icon: LucideIcon; title: string; text: string }[] = [
-  { to: '/app/chat', icon: MessageSquareMore, title: 'Chat', text: 'Have natural conversations, get instant answers, and explore new ideas.' },
-  { to: '/app/tasks', icon: CircleCheck, title: 'Tasks', text: 'Stay organized, set goals, track progress and get things done.' },
-  { to: '/app/files', icon: Folder, title: 'Files', text: 'Upload, manage and work with your files seamlessly.' },
-  { to: '/app/memory', icon: Brain, title: 'Memory', text: 'Remember important things, preferences and past conversations.' },
+const FEATURES: { to: string; icon: LucideIcon; title: string; text: string; hue: Hue }[] = [
+  { to: '/app/chat', icon: MessageSquareMore, title: 'Chat', text: 'Have natural conversations, get instant answers, and explore new ideas.', hue: AREA_HUE.chat },
+  { to: '/app/tasks', icon: CircleCheck, title: 'Tasks', text: 'Stay organized, set goals, track progress and get things done.', hue: AREA_HUE.tasks },
+  { to: '/app/files', icon: Folder, title: 'Files', text: 'Upload, manage and work with your files seamlessly.', hue: AREA_HUE.files },
+  { to: '/app/memory', icon: Brain, title: 'Memory', text: 'Remember important things, preferences and past conversations.', hue: AREA_HUE.memory },
 ]
 
 const ACTIVITY_ICON: Record<ActivityKind, LucideIcon> = {
@@ -141,17 +142,20 @@ function HomeHero() {
         </motion.form>
 
         <motion.div {...rise(4)} className="no-scrollbar -mx-4 mt-5 flex gap-2.5 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:px-0">
-          {CHIPS.map((c) =>
-            c.to ? (
-              <Link key={c.label} to={c.to} className="chip">
+          {CHIPS.map((c) => {
+            const dot = <span className="bg-hue size-1.5 rounded-full shadow-[0_0_8px_rgb(var(--hue)/0.9)]" />
+            return c.to ? (
+              <Link key={c.label} to={c.to} className={cn('chip', HUE[c.hue])}>
+                {dot}
                 {c.label}
               </Link>
             ) : (
-              <button key={c.label} onClick={() => void go(c.prompt!)} className="chip">
+              <button key={c.label} onClick={() => void go(c.prompt!)} className={cn('chip', HUE[c.hue])}>
+                {dot}
                 {c.label}
               </button>
-            ),
-          )}
+            )
+          })}
         </motion.div>
       </div>
     </div>
@@ -163,13 +167,14 @@ function FeatureCards() {
     <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
       {FEATURES.map((f, i) => (
         <motion.div key={f.to} {...rise(5 + i)}>
-          <Link to={f.to} className="tile group relative flex h-full flex-col rounded-2xl p-4 sm:p-5">
-            <span className="icon-box size-11 sm:size-12">
+          <Link to={f.to} className={cn('tile group relative flex h-full flex-col overflow-hidden rounded-2xl p-4 sm:p-5', HUE[f.hue])}>
+            <span className="pointer-events-none absolute -top-10 -right-10 size-28 rounded-full bg-[rgb(var(--hue)/0.16)] blur-2xl transition-opacity duration-500 group-hover:opacity-100 sm:opacity-70" />
+            <span className="icon-box relative size-11 sm:size-12">
               <f.icon className="size-5 sm:size-6" strokeWidth={1.6} />
             </span>
             <p className="font-display mt-4 text-lg font-semibold text-white">{f.title}</p>
             <p className="mt-1.5 line-clamp-3 flex-1 text-[0.82rem] leading-relaxed text-muted">{f.text}</p>
-            <ArrowRight className="mt-3 size-4 self-end text-brand-300 transition-transform duration-300 group-hover:translate-x-1" />
+            <ArrowRight className="text-hue mt-3 size-4 self-end transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         </motion.div>
       ))}
@@ -186,30 +191,32 @@ function TodayOverview() {
   const recentFiles = files.filter((f) => Date.now() - f.createdAt < 7 * 86_400_000).length
   const today = convs.filter((c) => isToday(c.updatedAt)).length
 
-  const tiles = [
-    { to: '/app/tasks', icon: CircleCheck, label: 'Tasks', sub: `${pending} pending` },
-    { to: '/app/files', icon: Folder, label: 'Files', sub: `${recentFiles} recent` },
-    { to: '/app/chat', icon: MessageSquareMore, label: 'Conversations', sub: `${today} today` },
-    { to: '/app/memory', icon: Brain, label: 'Memory', sub: mem.enabled ? `Active · ${mem.memories.length}` : 'Paused' },
+  const tiles: { to: string; icon: LucideIcon; label: string; sub: string; hue: Hue }[] = [
+    { to: '/app/tasks', icon: CircleCheck, label: 'Tasks', sub: `${pending} pending`, hue: AREA_HUE.tasks },
+    { to: '/app/files', icon: Folder, label: 'Files', sub: `${recentFiles} recent`, hue: AREA_HUE.files },
+    { to: '/app/chat', icon: MessageSquareMore, label: 'Conversations', sub: `${today} today`, hue: AREA_HUE.chat },
+    { to: '/app/memory', icon: Brain, label: 'Memory', sub: mem.enabled ? `Active · ${mem.memories.length}` : 'Paused', hue: AREA_HUE.memory },
   ]
 
   return (
     <Panel className="p-4 sm:p-5">
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-3.5">
-          <CalendarDays className="size-7 text-fg-soft" strokeWidth={1.4} />
+          <CalendarDays className="text-hue hue-cyan size-7" strokeWidth={1.4} />
           <div>
             <p className="font-display text-base font-medium text-white sm:text-lg">Today's Overview</p>
             <p className="text-xs text-muted">{formatLongDate()}</p>
           </div>
         </div>
-        <Link to="/app/calendar" className="btn-ghost shrink-0 rounded-xl border-brand-500/40 px-3.5 py-2 text-xs text-brand-300">
-          View Calendar <ArrowRight className="size-3.5" />
+        <Link to="/app/calendar" className="btn-ghost hue-cyan shrink-0 rounded-xl px-3.5 py-2 text-xs">
+          <span className="text-hue flex items-center gap-2">
+            View Calendar <ArrowRight className="size-3.5" />
+          </span>
         </Link>
       </div>
       <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
         {tiles.map((t) => (
-          <Link key={t.label} to={t.to} className="tile group flex items-center gap-3 rounded-xl p-3">
+          <Link key={t.label} to={t.to} className={cn('tile group flex items-center gap-3 rounded-xl p-3', HUE[t.hue])}>
             <span className="icon-box size-10 shrink-0 rounded-lg">
               <t.icon className="size-[18px]" strokeWidth={1.6} />
             </span>
@@ -247,7 +254,7 @@ function RecentConversations() {
               {i % 2 === 0 ? (
                 <AIAvatar size={32} />
               ) : (
-                <span className="icon-box size-8 rounded-full">
+                <span className="icon-box hue-violet size-8 rounded-full">
                   <Brain className="size-4" />
                 </span>
               )}
@@ -269,11 +276,11 @@ function AssistantPanel() {
   const name = useSettings((s) => s.name)
   const ask = useAssistant((s) => s.ask)
   const [open, setOpen] = useState(true)
-  const actions = [
-    { icon: PenLine, label: 'Write something', prompt: 'Create something' },
-    { icon: ScanSearch, label: 'Research & summarize', prompt: 'Research the future of personal AI assistants' },
-    { icon: CalendarDays, label: 'Plan my day', prompt: 'Plan my day' },
-    { icon: Lightbulb, label: 'Help me solve a problem', prompt: 'Help me solve a problem' },
+  const actions: { icon: LucideIcon; label: string; prompt: string; hue: Hue }[] = [
+    { icon: PenLine, label: 'Write something', prompt: 'Create something', hue: 'violet' },
+    { icon: ScanSearch, label: 'Research & summarize', prompt: 'Research the future of personal AI assistants', hue: 'cyan' },
+    { icon: CalendarDays, label: 'Plan my day', prompt: 'Plan my day', hue: 'emerald' },
+    { icon: Lightbulb, label: 'Help me solve a problem', prompt: 'Help me solve a problem', hue: 'amber' },
   ]
   return (
     <Panel className="p-4">
@@ -296,8 +303,8 @@ function AssistantPanel() {
         <ul className="mt-4 space-y-2">
           {actions.map((a) => (
             <li key={a.label}>
-              <button onClick={() => ask(a.prompt)} className="tile flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-left text-[0.8rem] text-fg-soft hover:text-white">
-                <a.icon className="size-4 text-brand-300" strokeWidth={1.7} />
+              <button onClick={() => ask(a.prompt)} className={cn('tile flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-left text-[0.8rem] text-fg-soft hover:text-white', HUE[a.hue])}>
+                <a.icon className="text-hue size-4" strokeWidth={1.7} />
                 {a.label}
               </button>
             </li>
@@ -309,12 +316,12 @@ function AssistantPanel() {
 }
 
 function QuickActions() {
-  const items = [
-    { to: '/app/tools/write', icon: FileText, label: 'Create a document' },
-    { to: '/app/tools/summarize', icon: FileText, label: 'Summarize a file' },
-    { to: '/app/tools/plan', icon: CalendarDays, label: 'Plan my day' },
-    { to: '/app/tools/research', icon: Search, label: 'Get research' },
-    { to: '/app/tools/email', icon: Mail, label: 'Draft an email' },
+  const items: { to: string; icon: LucideIcon; label: string; hue: Hue }[] = [
+    { to: '/app/tools/write', icon: FileText, label: 'Create a document', hue: 'violet' },
+    { to: '/app/tools/summarize', icon: FileText, label: 'Summarize a file', hue: 'cyan' },
+    { to: '/app/tools/plan', icon: CalendarDays, label: 'Plan my day', hue: 'emerald' },
+    { to: '/app/tools/research', icon: Search, label: 'Get research', hue: 'blue' },
+    { to: '/app/tools/email', icon: Mail, label: 'Draft an email', hue: 'fuchsia' },
   ]
   return (
     <Panel className="p-4">
@@ -325,7 +332,7 @@ function QuickActions() {
       <ul className="divide-y divide-line-soft">
         {items.map((i) => (
           <li key={i.label}>
-            <Link to={i.to} className="group flex items-center gap-3 py-2.5">
+            <Link to={i.to} className={cn('group flex items-center gap-3 py-2.5', HUE[i.hue])}>
               <span className="icon-box size-8 rounded-lg">
                 <i.icon className="size-4" strokeWidth={1.7} />
               </span>
@@ -342,7 +349,7 @@ function QuickActions() {
 function ActivityRow({ kind, title, detail, at }: { kind: ActivityKind; title: string; detail?: string; at: number }) {
   const Icon = ACTIVITY_ICON[kind]
   return (
-    <li className="flex items-center gap-3 py-2">
+    <li className={cn('flex items-center gap-3 py-2', HUE[ACTIVITY_HUE[kind]])}>
       <span className="icon-box size-8 shrink-0 rounded-lg">
         <Icon className="size-4" strokeWidth={1.7} />
       </span>

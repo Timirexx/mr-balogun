@@ -11,6 +11,7 @@ import {
   GraduationCap,
   type LucideIcon,
 } from 'lucide-react'
+import { HUE, type Hue } from '../hues'
 
 export type ToolCategory = 'Research' | 'Writing' | 'Planning' | 'Thinking'
 
@@ -143,3 +144,12 @@ export const TOOLS: ToolDefinition[] = [
 ]
 
 export const getTool = (id: string | undefined) => TOOLS.find((t) => t.id === id)
+
+export const CATEGORY_HUE: Record<ToolCategory, Hue> = {
+  Research: 'cyan',
+  Writing: 'violet',
+  Planning: 'emerald',
+  Thinking: 'amber',
+}
+
+export const toolHue = (t: ToolDefinition) => HUE[CATEGORY_HUE[t.category]]

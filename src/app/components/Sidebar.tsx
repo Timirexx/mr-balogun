@@ -5,10 +5,11 @@ import { Logo, LogoMark } from '@/components/brand/Logo'
 import { Modal } from '@/components/ui/Modal'
 import { toast } from '@/components/ui/Toast'
 import { LightStreaks } from '@/landing/Decor'
+import { HUE } from '@/lib/hues'
 import { cn } from '@/lib/utils'
 import { NAV } from '../nav'
 
-export function NavItemLink({ to, label, icon: Icon, end, onClick, rail }: (typeof NAV)[number] & { onClick?: () => void; rail?: boolean }) {
+export function NavItemLink({ to, label, icon: Icon, hue, end, onClick, rail }: (typeof NAV)[number] & { onClick?: () => void; rail?: boolean }) {
   return (
     <NavLink
       to={to}
@@ -18,16 +19,23 @@ export function NavItemLink({ to, label, icon: Icon, end, onClick, rail }: (type
       className={({ isActive }) =>
         cn(
           'font-display group relative flex items-center gap-3.5 rounded-xl border px-3.5 py-2.5 text-[0.95rem] transition-all duration-300',
+          HUE[hue],
           rail && 'md:max-lg:justify-center md:max-lg:px-0',
           isActive
-            ? 'border-brand-500/70 bg-gradient-to-r from-brand-800/70 to-brand-900/50 text-white shadow-[0_0_calc(24px*var(--glow))_-6px_rgba(6,140,252,0.9),inset_0_0_20px_rgba(6,140,252,0.18)]'
+            ? 'border-[rgb(var(--hue)/0.7)] bg-[linear-gradient(90deg,rgb(var(--hue)/0.24),rgb(var(--hue)/0.06))] text-white shadow-[0_0_calc(24px*var(--glow))_-6px_rgb(var(--hue)/0.85),inset_0_0_20px_rgb(var(--hue)/0.16)]'
             : 'border-transparent text-fg-soft/85 hover:border-line hover:bg-white/[0.03] hover:text-white',
         )
       }
     >
       {({ isActive }) => (
         <>
-          <Icon className={cn('size-[21px] shrink-0 transition-colors', isActive ? 'text-brand-300 drop-shadow-[0_0_6px_rgba(58,166,255,0.8)]' : 'text-muted group-hover:text-brand-300')} strokeWidth={1.6} />
+          <Icon
+            className={cn(
+              'text-hue size-[21px] shrink-0 transition-all',
+              isActive ? 'drop-shadow-[0_0_6px_rgb(var(--hue)/0.9)]' : 'opacity-60 group-hover:opacity-100',
+            )}
+            strokeWidth={1.6}
+          />
           <span className={cn(rail && 'md:max-lg:sr-only')}>{label}</span>
         </>
       )}
@@ -42,7 +50,7 @@ export function UpgradeModal({ open, onClose }: { open: boolean; onClose: () => 
       <ul className="mt-4 space-y-2 text-sm text-fg-soft">
         {['Advanced AI models', 'Live web research', 'Unlimited memory', 'Natural voice conversations'].map((f) => (
           <li key={f} className="flex items-center gap-2">
-            <span className="size-1.5 rounded-full bg-brand-400 shadow-[0_0_8px_rgba(58,166,255,0.8)]" />
+            <span className="size-1.5 rounded-full bg-gold-300 shadow-[0_0_8px_rgba(238,203,133,0.8)]" />
             {f}
           </li>
         ))}
@@ -52,7 +60,7 @@ export function UpgradeModal({ open, onClose }: { open: boolean; onClose: () => 
           toast("You're on the Pro waitlist.")
           onClose()
         }}
-        className="btn-primary mt-6 w-full py-2.5 text-sm"
+        className="btn-gold mt-6 w-full py-2.5 text-sm"
       >
         Join the waitlist <ArrowRight className="size-4" />
       </button>
@@ -86,15 +94,16 @@ export function Sidebar() {
       </nav>
 
       <div className="relative hidden shrink-0 px-4 pb-6 lg:block">
-        <div className="glass rounded-2xl p-4">
+        <div className="glass edge-gold isolate rounded-2xl p-4">
+          <div className="absolute inset-0 -z-10 rounded-2xl bg-[radial-gradient(120%_80%_at_0%_0%,rgba(233,190,112,0.14),transparent_60%)]" />
           <div className="flex items-center gap-3">
-            <span className="icon-box size-9 rounded-xl">
+            <span className="icon-box hue-gold size-9 rounded-xl">
               <Crown className="size-4" />
             </span>
-            <p className="text-sm font-medium text-white">Upgrade to Pro</p>
+            <p className="font-display text-gold-gradient text-sm font-semibold">Upgrade to Pro</p>
           </div>
           <p className="mt-3 text-xs leading-relaxed text-muted">Unlock advanced features, more memory and higher limits.</p>
-          <button onClick={() => setUpgrade(true)} className="btn-primary mt-4 rounded-xl px-4 py-2 text-xs">
+          <button onClick={() => setUpgrade(true)} className="btn-gold mt-4 rounded-xl px-4 py-2 text-xs">
             Upgrade Now <ArrowRight className="size-3.5" />
           </button>
         </div>

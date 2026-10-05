@@ -4,15 +4,16 @@ import { Link } from 'react-router-dom'
 import { Logo } from '@/components/brand/Logo'
 import { InstagramIcon, LinkedInIcon, XIcon, YouTubeIcon } from '@/components/ui/BrandIcons'
 import { toast } from '@/components/ui/Toast'
+import { HUE } from '@/lib/hues'
 import { cn } from '@/lib/utils'
 import { Reveal } from './Decor'
 
 /* ---------------- How it works ---------------- */
 
 const STEPS = [
-  { icon: MessageSquareText, title: 'Ask', text: 'Type or speak naturally — a question, a goal, a messy idea.' },
-  { icon: Brain, title: 'Mr Balogun thinks', text: 'He draws on your memory, tasks, calendar and files for context.' },
-  { icon: Rocket, title: 'Get it done', text: 'Plans, drafts, summaries and tasks — ready for you to act on.' },
+  { icon: MessageSquareText, title: 'Ask', text: 'Type or speak naturally — a question, a goal, a messy idea.', hue: HUE.blue },
+  { icon: Brain, title: 'Mr Balogun thinks', text: 'He draws on your memory, tasks, calendar and files for context.', hue: HUE.violet },
+  { icon: Rocket, title: 'Get it done', text: 'Plans, drafts, summaries and tasks — ready for you to act on.', hue: HUE.emerald },
 ]
 
 export function HowItWorks() {
@@ -26,14 +27,15 @@ export function HowItWorks() {
           </h2>
         </Reveal>
         <div className="relative mt-14 grid gap-5 md:grid-cols-3">
-          <div className="absolute top-12 right-[16%] left-[16%] hidden h-px bg-gradient-to-r from-transparent via-brand-500/50 to-transparent md:block" />
+          <div className="absolute top-12 right-[16%] left-[16%] hidden h-px bg-gradient-to-r from-blue-500/0 via-violet-400/60 to-emerald-400/0 md:block" />
           {STEPS.map((s, i) => (
             <Reveal key={s.title} delay={i * 0.12}>
-              <div className="glass group relative h-full rounded-2xl p-6 text-center transition-transform duration-500 hover:-translate-y-1">
+              <div className={cn('glass group relative h-full overflow-hidden rounded-2xl p-6 text-center transition-transform duration-500 hover:-translate-y-1', s.hue)}>
+                <div className="pointer-events-none absolute -top-16 left-1/2 size-40 -translate-x-1/2 rounded-full bg-[rgb(var(--hue)/0.14)] blur-2xl" />
                 <div className="icon-box relative mx-auto size-14 rounded-2xl bg-ink-800">
                   <s.icon className="size-6" />
                 </div>
-                <p className="mt-5 text-xs font-medium tracking-[0.2em] text-subtle">STEP {i + 1}</p>
+                <p className="text-hue mt-5 text-xs font-medium tracking-[0.2em]">STEP {i + 1}</p>
                 <p className="mt-1.5 text-lg font-semibold text-white">{s.title}</p>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{s.text}</p>
               </div>
@@ -69,36 +71,40 @@ const PLANS = [
 export function Pricing() {
   return (
     <section id="pricing" className="relative scroll-mt-20 overflow-hidden border-t border-line-soft">
-      <div className="absolute top-1/2 left-1/2 -z-10 h-80 w-[40rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-600/10 blur-3xl" />
+      <div className="absolute top-1/2 left-[40%] -z-10 h-80 w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-600/10 blur-3xl" />
+      <div className="absolute top-1/2 left-[62%] -z-10 h-72 w-[26rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[rgba(233,190,112,0.08)] blur-3xl" />
       <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 md:py-28">
         <Reveal className="mx-auto max-w-xl text-center">
           <p className="font-display text-sm font-medium tracking-wide text-brand-400">Pricing</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-[-0.02em] text-white sm:text-4xl">
-            Start free. <span className="font-accent text-brand-gradient">Grow into Pro.</span>
+            Start free. <span className="font-accent text-gold-gradient">Grow into Pro.</span>
           </h2>
         </Reveal>
         <div className="mx-auto mt-14 grid max-w-3xl gap-5 md:grid-cols-2">
           {PLANS.map((p, i) => (
             <Reveal key={p.name} delay={i * 0.12}>
-              <div className={cn('relative flex h-full flex-col rounded-2xl p-7', p.highlight ? 'glass-strong edge-glow' : 'glass')}>
+              <div className={cn('relative flex h-full flex-col rounded-2xl p-7', p.highlight ? 'glass-strong edge-gold hue-gold isolate' : 'glass')}>
                 {p.highlight && (
-                  <span className="absolute -top-3 left-7 flex items-center gap-1 rounded-full border border-brand-400/50 bg-ink-800 px-2.5 py-1 text-[0.68rem] text-brand-200">
-                    <Sparkles className="size-3" /> Coming soon
-                  </span>
+                  <>
+                    <div className="absolute inset-0 -z-10 rounded-2xl bg-[radial-gradient(120%_70%_at_100%_0%,rgba(233,190,112,0.16),transparent_60%)]" />
+                    <span className="badge-hue absolute -top-3 left-7 flex items-center gap-1 rounded-full bg-ink-800 px-2.5 py-1 text-[0.68rem]">
+                      <Sparkles className="size-3" /> Coming soon
+                    </span>
+                  </>
                 )}
                 <p className="text-sm text-muted">{p.name}</p>
-                <p className="mt-2 text-3xl font-semibold tracking-tight text-white">{p.price}</p>
+                <p className={cn('font-display mt-2 text-3xl font-semibold tracking-tight', p.highlight ? 'text-gold-gradient' : 'text-white')}>{p.price}</p>
                 <p className="mt-1 text-sm text-subtle">{p.note}</p>
                 <ul className="mt-6 flex-1 space-y-3">
                   {p.features.map((f) => (
                     <li key={f} className="flex items-start gap-2.5 text-sm text-fg-soft">
-                      <Check className="mt-0.5 size-4 shrink-0 text-brand-400" />
+                      <Check className={cn('mt-0.5 size-4 shrink-0', p.highlight ? 'text-hue' : 'text-brand-400')} />
                       {f}
                     </li>
                   ))}
                 </ul>
                 {p.highlight ? (
-                  <button onClick={() => toast("You're on the list — we'll let you know when Pro opens.")} className="btn-ghost mt-7 w-full rounded-full py-2.5 text-sm">
+                  <button onClick={() => toast("You're on the list — we'll let you know when Pro opens.")} className="btn-gold mt-7 w-full py-2.5 text-sm">
                     {p.cta}
                   </button>
                 ) : (
@@ -172,10 +178,11 @@ export function FinalCta() {
         <rect x="0" y="180" width="1440" height="140" fill="url(#m-mist)" />
       </svg>
       <div className="absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-t from-ink-900 to-transparent" />
+      <div className="bg-aurora absolute top-[8%] left-1/2 -z-10 h-[70%] w-[min(60rem,100%)] -translate-x-1/2 blur-2xl" />
 
       <Reveal className="mx-auto max-w-2xl px-5 py-28 text-center sm:py-36">
         <h2 className="text-3xl font-light tracking-[-0.02em] text-brand-100 sm:text-5xl">
-          Ready to <span className="font-accent">Experience</span>
+          Ready to <span className="font-accent text-brand-gradient">Experience</span>
           <br />
           <span className="font-semibold text-white">Mr Balogun?</span>
         </h2>

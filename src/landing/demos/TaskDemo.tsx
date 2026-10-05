@@ -43,7 +43,7 @@ export function TaskDemo() {
           </div>
           <ul className="space-y-1">
             {NAV.map(({ icon: Icon, label, active }) => (
-              <li key={label} className={cn('flex items-center gap-2 rounded-lg px-2 py-1.5 text-[0.72rem]', active ? 'border border-brand-400/40 bg-brand-500/15 text-brand-200' : 'text-muted')}>
+              <li key={label} className={cn('flex items-center gap-2 rounded-lg px-2 py-1.5 text-[0.72rem]', active ? 'chip-active border' : 'text-muted')}>
                 <Icon className="size-3.5" />
                 {label}
               </li>
@@ -64,7 +64,7 @@ export function TaskDemo() {
                 <motion.ul initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="mt-3 space-y-1.5 overflow-hidden">
                   {PLAN.slice(0, shown).map((p) => (
                     <motion.li key={p} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} className="flex items-center gap-2 text-xs text-fg-soft">
-                      <CircleCheck className="size-3.5 text-brand-400" />
+                      <CircleCheck className="text-hue size-3.5" />
                       {p}
                     </motion.li>
                   ))}

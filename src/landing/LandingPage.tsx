@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { CheckList, FeatureSection, LightStreaks, Reveal } from './Decor'
+import { CheckList, FeatureSection, LightStreaks, Reveal, SectionLabel } from './Decor'
 import { ChatDemo } from './demos/ChatDemo'
 import { MemoryDemo } from './demos/MemoryDemo'
 import { PersonalizationDemo } from './demos/PersonalizationDemo'
@@ -14,11 +14,11 @@ const TOTAL = 6
 
 function VoiceSection() {
   return (
-    <section className="relative overflow-hidden border-t border-line-soft">
+    <section className="hue-cyan relative overflow-hidden border-t border-line-soft">
       <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
-        <LightStreaks className="top-[30%] left-[20%] h-1/2 w-[60%] opacity-40" />
+        <LightStreaks className="top-[30%] left-[20%] h-1/2 w-[60%] opacity-50" />
         <div className="pointer-events-none absolute inset-y-0 right-[-5%] hidden w-[34%] lg:block">
-          <div className="absolute top-1/2 left-[30%] size-[70%] -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(10,90,200,0.32),transparent)] blur-2xl" />
+          <div className="absolute top-1/2 left-[30%] size-[70%] -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(45,212,236,0.22),rgba(30,110,230,0.14)_55%,transparent)] blur-2xl" />
           <img
             src="/avatar/profile.webp"
             alt=""
@@ -28,11 +28,9 @@ function VoiceSection() {
         </div>
         <div className="relative grid items-center gap-12 py-20 md:py-28 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
           <Reveal>
-            <p className="font-display text-sm font-medium tracking-wide text-brand-400">
-              03 <span className="text-subtle">/ 0{TOTAL}</span>
-            </p>
+            <SectionLabel index={3} total={TOTAL} />
             <h2 className="mt-3 text-3xl font-semibold tracking-[-0.02em] text-white sm:text-4xl">
-              Voice <span className="font-accent text-brand-gradient">Interaction</span>
+              Voice <span className="font-accent text-hue-gradient">Interaction</span>
             </h2>
             <p className="mt-4 max-w-md text-[1.02rem] leading-relaxed text-muted">
               Speak naturally. Get instant responses. Mr Balogun listens, understands, and replies in real time.
@@ -60,6 +58,7 @@ export default function LandingPage() {
         <Hero />
         <FeatureSection
           id="features"
+          hue="blue"
           index={1}
           total={TOTAL}
           title="Intelligent AI Chat"
@@ -67,9 +66,9 @@ export default function LandingPage() {
           text="Have natural conversations, get instant answers, and explore new ideas. Mr Balogun is always ready to help, 24/7."
           bullets={['Ask anything', 'Get clear, helpful answers', 'Remembers context between chats']}
           visual={<ChatDemo />}
-          decor={<div className="absolute top-0 right-0 h-full w-1/2 bg-[radial-gradient(ellipse_at_70%_50%,rgba(6,100,220,0.12),transparent_65%)]" />}
         />
         <FeatureSection
+          hue="emerald"
           index={2}
           total={TOTAL}
           title="Task Assistance"
@@ -81,6 +80,7 @@ export default function LandingPage() {
         />
         <VoiceSection />
         <FeatureSection
+          hue="violet"
           index={4}
           total={TOTAL}
           title="Personalization"
@@ -90,6 +90,7 @@ export default function LandingPage() {
           reverse
         />
         <FeatureSection
+          hue="fuchsia"
           index={5}
           total={TOTAL}
           title="Memory & History"
@@ -100,6 +101,7 @@ export default function LandingPage() {
           decor={<LightStreaks flip className="top-1/3 right-0 h-1/2 w-2/3 opacity-30" />}
         />
         <FeatureSection
+          hue="amber"
           index={6}
           total={TOTAL}
           title="Files & Smart Tools"

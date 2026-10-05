@@ -11,6 +11,7 @@ import { useMemories } from '@/lib/store/memories'
 import { useSettings } from '@/lib/store/settings'
 import { useTasks } from '@/lib/store/tasks'
 import type { ThemeName } from '@/lib/types'
+import { HUE } from '@/lib/hues'
 import { cn, timeAgo, todayISO } from '@/lib/utils'
 
 const SEEN_KEY = 'mrb-notifications-seen'
@@ -23,17 +24,17 @@ function useNotifications() {
   return useMemo(() => {
     const today = todayISO()
     const nowMin = new Date().getHours() * 60 + new Date().getMinutes()
-    const items: { id: string; icon: typeof Bell; title: string; text: string; to: string }[] = []
+    const items: { id: string; icon: typeof Bell; title: string; text: string; to: string; hue: string }[] = []
     const due = tasks.filter((t) => !t.done && t.due === today)
     const overdue = tasks.filter((t) => !t.done && t.due && t.due < today)
     const next = events
       .filter((e) => e.date === today && Number(e.start.slice(0, 2)) * 60 + Number(e.start.slice(3)) >= nowMin)
       .sort((a, b) => a.start.localeCompare(b.start))[0]
-    if (due.length) items.push({ id: `due-${today}-${due.length}`, icon: CircleCheck, title: `${due.length} task${due.length > 1 ? 's' : ''} due today`, text: due.map((t) => t.title).slice(0, 2).join(' · '), to: '/app/tasks' })
-    if (overdue.length) items.push({ id: `over-${overdue.length}`, icon: CircleAlert, title: `${overdue.length} overdue task${overdue.length > 1 ? 's' : ''}`, text: overdue[0].title, to: '/app/tasks' })
-    if (next) items.push({ id: `ev-${next.id}`, icon: CalendarClock, title: `Up next: ${next.title}`, text: `Today at ${next.start}`, to: '/app/calendar' })
+    if (due.length) items.push({ id: `due-${today}-${due.length}`, icon: CircleCheck, title: `${due.length} task${due.length > 1 ? 's' : ''} due today`, text: due.map((t) => t.title).slice(0, 2).join(' · '), to: '/app/tasks', hue: HUE.emerald })
+    if (overdue.length) items.push({ id: `over-${overdue.length}`, icon: CircleAlert, title: `${overdue.length} overdue task${overdue.length > 1 ? 's' : ''}`, text: overdue[0].title, to: '/app/tasks', hue: HUE.rose })
+    if (next) items.push({ id: `ev-${next.id}`, icon: CalendarClock, title: `Up next: ${next.title}`, text: `Today at ${next.start}`, to: '/app/calendar', hue: HUE.cyan })
     const recent = memories[0]
-    if (recent && Date.now() - recent.createdAt < 86_400_000) items.push({ id: `mem-${recent.id}`, icon: Brain, title: 'New memory saved', text: `${recent.content} · ${timeAgo(recent.createdAt)}`, to: '/app/memory' })
+    if (recent && Date.now() - recent.createdAt < 86_400_000) items.push({ id: `mem-${recent.id}`, icon: Brain, title: 'New memory saved', text: `${recent.content} · ${timeAgo(recent.createdAt)}`, to: '/app/memory', hue: HUE.violet })
     return items
   }, [tasks, events, memories])
 }
@@ -140,7 +141,7 @@ export function Topbar() {
                       }}
                       className="flex w-full items-start gap-3 rounded-xl px-3 py-2.5 text-left hover:bg-white/[0.04]"
                     >
-                      <span className="icon-box mt-0.5 size-8 shrink-0 rounded-lg">
+                      <span className={cn('icon-box mt-0.5 size-8 shrink-0 rounded-lg', n.hue)}>
                         <n.icon className="size-4" />
                       </span>
                       <span className="min-w-0">

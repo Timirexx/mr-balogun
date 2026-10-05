@@ -125,7 +125,7 @@ export function MessageList({ messages, streaming, onRegenerate, compact, classN
               {m.content && (
                 <p
                   className={cn(
-                    'max-w-[85%] rounded-2xl rounded-br-md bg-gradient-to-b from-brand-500 to-brand-600 whitespace-pre-wrap text-white shadow-[0_10px_30px_-12px_rgba(6,140,252,0.9)]',
+                    'max-w-[85%] rounded-2xl rounded-br-md bubble-user whitespace-pre-wrap',
                     compact ? 'px-3 py-2 text-[0.84rem]' : 'px-4 py-2.5 text-[0.92rem]',
                   )}
                 >
