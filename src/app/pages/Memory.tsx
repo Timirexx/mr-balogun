@@ -97,7 +97,7 @@ export default function Memory() {
     <Page>
       <PageHeader
         title="Memory"
-        subtitle="What Mr Balogun remembers about you — always in your control."
+        subtitle="What CATT remembers about you — always in your control."
         actions={
           <Panel className="flex items-center gap-3 px-4 py-2.5">
             <Brain className={cn('hue-violet size-5', enabled ? 'text-hue' : 'text-subtle')} />
@@ -118,7 +118,7 @@ export default function Memory() {
         <Panel className="p-4 sm:p-5">
           <form onSubmit={submit}>
             <label htmlFor="new-memory" className="text-sm font-medium text-white">
-              Teach Mr Balogun something
+              Teach CATT something
             </label>
             <textarea
               id="new-memory"
@@ -189,7 +189,7 @@ export default function Memory() {
 
       {list.length === 0 ? (
         <Panel className="mt-4">
-          <EmptyState icon={<Brain className="size-6" />} title={memories.length ? 'No matching memories' : 'No memories yet'} text="Add something above, or tell Mr Balogun in chat: “Remember that…”" />
+          <EmptyState icon={<Brain className="size-6" />} title={memories.length ? 'No matching memories' : 'No memories yet'} text="Add something above, or tell CATT in chat: “Remember that…”" />
         </Panel>
       ) : (
         <motion.ul layout className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
@@ -202,7 +202,7 @@ export default function Memory() {
       )}
 
       <Modal open={confirm} onClose={() => setConfirm(false)} title="Clear all memories?">
-        <p className="text-sm text-muted">Mr Balogun will forget all {memories.length} memories. This can't be undone.</p>
+        <p className="text-sm text-muted">CATT will forget all {memories.length} memories. This can't be undone.</p>
         <div className="mt-6 flex justify-end gap-2">
           <button onClick={() => setConfirm(false)} className="btn-ghost px-4 py-2 text-sm">
             Cancel

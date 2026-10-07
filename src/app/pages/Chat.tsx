@@ -365,7 +365,7 @@ export default function Chat() {
             <button
               onClick={() => {
                 updateSettings({ speakReplies: !speakReplies })
-                toast(speakReplies ? 'Replies will no longer be read aloud' : 'Mr Balogun will read replies aloud', 'info')
+                toast(speakReplies ? 'Replies will no longer be read aloud' : 'CATT will read replies aloud', 'info')
               }}
               className={cn('grid size-9 place-items-center rounded-xl transition-colors hover:bg-white/5', speakReplies ? 'text-brand-300' : 'text-muted')}
               aria-label={speakReplies ? 'Turn off spoken replies' : 'Read replies aloud'}
@@ -398,7 +398,7 @@ export default function Chat() {
         <div className="shrink-0 px-3 pt-2 pb-3 sm:px-6 sm:pb-5">
           <div className="mx-auto max-w-3xl">
             <Composer ref={composer} busy={streaming} onStop={() => conv && stopStreaming(conv.id)} onSend={send} autoFocus />
-            <p className="mt-2 hidden text-center text-[0.68rem] text-subtle sm:block">Mr Balogun is running on the local demo engine — replies are generated on your device.</p>
+            <p className="mt-2 hidden text-center text-[0.68rem] text-subtle sm:block">CATT is running on the local demo engine — replies are generated on your device.</p>
           </div>
         </div>
 

@@ -5,7 +5,7 @@ export function AIAvatar({ size = 40, online, ring = true, className }: { size?:
     <span className={cn('relative inline-block shrink-0 rounded-full', className)} style={{ width: size, height: size }}>
       <img
         src="/avatar/avatar.webp"
-        alt="Mr Balogun"
+        alt="CATT"
         width={size}
         height={size}
         className={cn(

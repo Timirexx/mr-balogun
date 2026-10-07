@@ -218,7 +218,7 @@ function memoryRecall(ctx: AIContext) {
 }
 
 function capabilities(ctx: AIContext) {
-  return `I'm Mr Balogun — your personal AI assistant, ${firstName(ctx.userName)}. Here's what I can do:\n\n- **Chat** — answer questions and think things through with you\n- **Plan** — build your day from your tasks and calendar\n- **Write** — drafts, emails, bios and polished rewrites\n- **Summarize** — condense notes and files into key points\n- **Remember** — say _"remember that…"_ and I'll keep it\n- **Organize** — say _"add a task to…"_ or _"schedule … at 3pm"_\n\nWhat would you like to start with?`
+  return `I'm CATT — your personal AI assistant, ${firstName(ctx.userName)}. Here's what I can do:\n\n- **Chat** — answer questions and think things through with you\n- **Plan** — build your day from your tasks and calendar\n- **Write** — drafts, emails, bios and polished rewrites\n- **Summarize** — condense notes and files into key points\n- **Remember** — say _"remember that…"_ and I'll keep it\n- **Organize** — say _"add a task to…"_ or _"schedule … at 3pm"_\n\nWhat would you like to start with?`
 }
 
 function greet(ctx: AIContext, seed: number) {

@@ -60,7 +60,7 @@ export function CommandPalette() {
       out.push({
         id: 'ask',
         group: 'Ask',
-        label: `Ask Mr Balogun: “${q.trim()}”`,
+        label: `Ask CATT: “${q.trim()}”`,
         icon: Sparkles,
         run: async () => navigate(`/app/chat/${await startConversation(q.trim())}`),
       })
@@ -125,7 +125,7 @@ export function CommandPalette() {
                   } else if (e.key === 'Enter') run(items[idx])
                   else if (e.key === 'Escape') setOpen(false)
                 }}
-                placeholder="Search or ask Mr Balogun…"
+                placeholder="Search or ask CATT…"
                 aria-label="Search"
                 className="h-14 flex-1 bg-transparent text-[0.95rem] text-white placeholder:text-subtle focus:outline-none"
               />

@@ -97,7 +97,7 @@ function ProfileSection() {
             Save
           </button>
         </form>
-        <p className="mt-2 text-xs text-subtle">Mr Balogun uses your first name in greetings.</p>
+        <p className="mt-2 text-xs text-subtle">CATT uses your first name in greetings.</p>
       </Block>
     </>
   )
@@ -158,7 +158,7 @@ function VoiceSection() {
   const voices = useVoices()
   return (
     <>
-      <Row title="Read replies aloud" text="Mr Balogun speaks every reply. Voice messages always get a spoken reply.">
+      <Row title="Read replies aloud" text="CATT speaks every reply. Voice messages always get a spoken reply.">
         <Switch checked={s.speakReplies} onChange={(speakReplies) => s.update({ speakReplies })} label="Read replies aloud" />
       </Row>
       <Row title="Voice" text={canSpeak() ? 'Voices come from your device and browser.' : 'Speech is not supported in this browser.'}>
@@ -190,7 +190,7 @@ function VoiceSection() {
         />
       </Row>
       <Row title="Test voice">
-        <button onClick={() => speak(`Hi, I'm Mr Balogun. This is how I sound.`)} disabled={!canSpeak()} className="btn-ghost px-4 py-2 text-sm">
+        <button onClick={() => speak(`Hi, I'm CATT. This is how I sound.`)} disabled={!canSpeak()} className="btn-ghost px-4 py-2 text-sm">
           <Play className="text-hue size-4" /> Play sample
         </button>
       </Row>
@@ -254,7 +254,7 @@ function NotificationsSection() {
       <Row title="Product updates" text="New tools and features.">
         <Switch checked={s.notifyProduct} onChange={(notifyProduct) => s.update({ notifyProduct })} label="Product updates" />
       </Row>
-      <Row title="Browser notifications" text={perm === 'granted' ? 'Enabled for this browser.' : 'Allow Mr Balogun to show notifications.'}>
+      <Row title="Browser notifications" text={perm === 'granted' ? 'Enabled for this browser.' : 'Allow CATT to show notifications.'}>
         <button
           disabled={perm === 'granted' || typeof Notification === 'undefined'}
           onClick={async () => setPerm(await Notification.requestPermission())}
@@ -306,7 +306,7 @@ function DataSection() {
           </span>
         </button>
       </Row>
-      <Modal open={confirm} onClose={() => setConfirm(false)} title="Reset Mr Balogun?">
+      <Modal open={confirm} onClose={() => setConfirm(false)} title="Reset CATT?">
         <p className="text-sm text-muted">This permanently deletes all conversations, tasks, memories, files and settings on this device.</p>
         <div className="mt-6 flex justify-end gap-2">
           <button onClick={() => setConfirm(false)} className="btn-ghost px-4 py-2 text-sm">
@@ -344,7 +344,7 @@ export default function Settings() {
 
   return (
     <Page>
-      <PageHeader title="Settings" subtitle="Personalise Mr Balogun and manage your data." />
+      <PageHeader title="Settings" subtitle="Personalise CATT and manage your data." />
       <div className="mt-6 grid gap-5 lg:grid-cols-[230px_1fr]">
         <nav className="no-scrollbar -mx-4 flex gap-1.5 overflow-x-auto px-4 lg:mx-0 lg:flex-col lg:px-0" aria-label="Settings sections">
           {SECTIONS.map((s) => (

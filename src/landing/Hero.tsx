@@ -1,152 +1,86 @@
 import { motion } from 'framer-motion'
-import { ArrowRight, MousePointer2 } from 'lucide-react'
+import { ArrowUpRight, Volume2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { FollowingFace } from './FollowingFace'
 
 const ease = [0.16, 1, 0.3, 1] as const
-
-const SPARKS = [
-  { l: '58%', t: '16%', s: 3, d: 0, hue: 'hue-blue' },
-  { l: '92%', t: '30%', s: 2, d: 1.2, hue: 'hue-violet' },
-  { l: '50%', t: '64%', s: 2, d: 0.6, hue: 'hue-cyan' },
-  { l: '96%', t: '58%', s: 3, d: 2, hue: 'hue-blue' },
-  { l: '72%', t: '8%', s: 2, d: 1.6, hue: 'hue-cyan' },
-  { l: '46%', t: '32%', s: 2, d: 2.4, hue: 'hue-violet' },
-]
+const rise = (delay: number) => ({
+  initial: { opacity: 0, y: 18 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.8, delay, ease },
+})
 
 export function Hero() {
   return (
-    <section id="home" className="relative isolate overflow-hidden">
-      <div className="absolute inset-0 -z-20 bg-[radial-gradient(900px_600px_at_62%_35%,rgba(12,70,150,0.32),transparent_65%),radial-gradient(600px_400px_at_20%_80%,rgba(6,60,130,0.16),transparent_70%)]" />
-      <div className="bg-grid absolute inset-0 -z-20 [mask-image:radial-gradient(ellipse_at_55%_40%,#000,transparent_70%)] opacity-60" />
-
-      {/* Everything — copy, face and annotations — shares one centred container. */}
-      <div className="relative mx-auto min-h-[100svh] max-w-6xl px-5 sm:px-8">
-        <motion.div
-          className="absolute inset-x-0 top-0 -z-10 h-[64svh] md:top-[7vh] md:right-[-2%] md:left-[42%] md:aspect-[680/740] md:h-auto lg:top-0 lg:right-[-4%] lg:bottom-0 lg:left-[44%] lg:aspect-auto lg:h-auto"
-          initial={{ opacity: 0, scale: 1.06 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.6, ease }}
-        >
-          <div className="absolute top-[4%] left-1/2 h-[62%] w-[70%] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(10,90,200,0.38),rgba(6,50,120,0.16)_55%,transparent)] blur-2xl" />
-          <div className="absolute top-[22%] right-[2%] h-[48%] w-[46%] rounded-full bg-[radial-gradient(closest-side,rgba(124,92,255,0.22),transparent)] blur-3xl" />
-          <div className="absolute top-[30%] left-[6%] h-[40%] w-[36%] rounded-full bg-[radial-gradient(closest-side,rgba(34,200,230,0.14),transparent)] blur-3xl" />
-          <FollowingFace imgClassName="[mask-composite:intersect] [mask-image:radial-gradient(ellipse_78%_66%_at_50%_38%,#000_55%,transparent_100%),linear-gradient(#000_58%,transparent)] md:[mask-image:radial-gradient(ellipse_52%_68%_at_50%_40%,#000_60%,transparent_100%),linear-gradient(#000_68%,transparent_97%)]" />
+    <section id="home" className="wrap relative grid items-center gap-8 pt-14 md:min-h-[700px] md:grid-cols-[42%_58%] md:gap-0 md:pt-0">
+      <div className="relative z-10 max-md:text-center md:pt-5">
+        <motion.p {...rise(0.15)} className="eyebrow">
+          YOUR AI ASSISTANT
+        </motion.p>
+        <motion.h1 {...rise(0.25)} className="font-display mt-0 mb-[22px] text-[54px] leading-none tracking-[-0.055em] sm:text-[64px]">
+          Hey, I&apos;m <span className="text-brand-500">Catt.</span>
+        </motion.h1>
+        <motion.p {...rise(0.35)} className="mb-7 max-w-[330px] text-base leading-[1.5] text-[#aaa] max-md:mx-auto">
+          Your personal AI assistant, always ready to chat, help, and get things done.
+        </motion.p>
+        <motion.div {...rise(0.45)}>
+          <Link to="/app" className="btn-primary group py-1.5 pr-[21px] pl-[7px] text-sm">
+            <span className="grid size-[34px] place-items-center rounded-full bg-[#ff7b1e]">
+              <ArrowUpRight className="size-[17px] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </span>
+            Get in
+          </Link>
         </motion.div>
-
-        {SPARKS.map((p, i) => (
-          <motion.span
-            key={i}
-            className={`bg-hue absolute -z-10 hidden rounded-full shadow-[0_0_10px_3px_rgb(var(--hue)/0.6)] md:block ${p.hue}`}
-            style={{ left: p.l, top: p.t, width: p.s, height: p.s }}
-            animate={{ opacity: [0.15, 1, 0.15], scale: [0.8, 1.3, 0.8] }}
-            transition={{ duration: 3.5, repeat: Infinity, delay: p.d }}
-          />
-        ))}
-
-        <div className="relative flex min-h-[100svh] flex-col justify-end pt-[50svh] pb-16 md:justify-center md:pt-24 md:pb-24">
-          <div className="max-w-xl">
-            <motion.p
-              className="font-display text-sm font-medium tracking-wide text-fg-soft"
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease }}
-            >
-              Your Personal AI Assistant
-            </motion.p>
-            <motion.h1
-              className="text-brand-gradient text-glow mt-3 -mb-[0.16em] pb-[0.16em] text-[3.4rem] leading-[0.95] font-bold tracking-[-0.04em] sm:text-7xl lg:text-[5.6rem]"
-              initial={{ opacity: 0, y: 24, filter: 'blur(10px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              transition={{ duration: 1, delay: 0.3, ease }}
-            >
-              Mr Balogun
-            </motion.h1>
-            <motion.p
-              className="font-display mt-3 text-[1.7rem] font-light tracking-[-0.02em] text-white sm:text-[2.4rem]"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.45, ease }}
-            >
-              Think. Ask. <span className="font-accent text-brand-100">Get It Done.</span>
-            </motion.p>
-            <motion.p
-              className="mt-5 max-w-md text-[0.98rem] leading-relaxed text-muted"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.55, ease }}
-            >
-              More than just a chatbot — Mr Balogun is your personal AI assistant, built to help you think clearer, work smarter, and handle what
-              matters.
-            </motion.p>
-            <motion.div
-              className="mt-8 flex flex-wrap items-center gap-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.65, ease }}
-            >
-              <Link to="/app" className="btn-primary group px-6 py-3 text-[0.95rem]">
-                Get Started
-                <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-              <a href="#features" className="text-sm text-fg-soft transition-colors hover:text-white">
-                See what it can do
-              </a>
-            </motion.div>
-            <motion.div
-              className="mt-9 flex items-center gap-3"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.9 }}
-            >
-              <div className="flex -space-x-2.5">
-                {['AB', 'TK', 'JM', 'SO'].map((n, i) => (
-                  <span
-                    key={n}
-                    className="grid size-8 place-items-center rounded-full border-2 border-ink-900 text-[0.62rem] font-semibold text-white"
-                    style={{ background: `linear-gradient(135deg, hsl(${205 + i * 8} 90% ${48 - i * 5}%), hsl(${220 + i * 6} 80% ${22 + i * 3}%))` }}
-                  >
-                    {n}
-                  </span>
-                ))}
-              </div>
-              <p className="text-xs leading-tight text-muted">
-                Trusted by people
-                <br />
-                who think ahead
-              </p>
-            </motion.div>
-            <motion.p
-              className="mt-10 hidden items-center gap-3 text-xs text-muted pointer-fine:flex"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 1.1 }}
-            >
-              <span className="grid size-9 place-items-center rounded-full border border-brand-400/30 bg-brand-500/5">
-                <MousePointer2 className="size-4 fill-white text-white" />
+        <motion.div {...rise(0.6)} className="mt-12 flex items-center gap-3 text-[11px] leading-[1.35] text-[#85817e] max-md:justify-center md:mt-[86px]">
+          <div className="flex">
+            {['◒', '◓', '◑', '◐'].map((g, i) => (
+              <span
+                key={g}
+                className="grid size-[30px] place-items-center rounded-full border-2 border-[#5d5a57] bg-[#1c1b1a] text-[17px] text-[#f47d22]"
+                style={{ marginLeft: i === 0 ? 0 : -6 }}
+              >
+                {g}
               </span>
-              Move your cursor — watch me follow
-            </motion.p>
+            ))}
           </div>
-        </div>
-
-        <motion.div
-          className="absolute right-5 bottom-[16%] hidden text-right text-[0.7rem] leading-[1.9] tracking-[0.3em] text-subtle/80 sm:right-8 xl:block"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, delay: 1.3 }}
-        >
-          SMARTER
-          <br />
-          FASTER
-          <br />
-          ALWAYS
-          <br />
-          WITH YOU
+          <span>
+            Trusted by thousands
+            <br />
+            of users worldwide
+          </span>
         </motion.div>
       </div>
 
-      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-brand-500/40 to-transparent" />
+      <motion.div
+        className="relative flex h-[400px] items-end justify-center md:h-[670px]"
+        initial={{ opacity: 0, scale: 1.04 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.4, ease }}
+      >
+        {/* warm pool of light the cat stands in */}
+        <div className="pointer-events-none absolute bottom-[6%] h-[150px] w-[420px] max-w-full bg-[radial-gradient(ellipse,rgba(247,103,11,0.38),transparent_65%)] blur-[14px] md:w-[560px]" />
+        <img
+          src="/avatar/hero.webp"
+          alt="Catt, a friendly black cat AI assistant"
+          className="relative z-10 -mb-[10px] w-[300px] max-w-none [filter:saturate(1.12)_contrast(1.08)_brightness(0.96)] [mask-image:linear-gradient(#000_80%,transparent)] md:-mb-[35px] md:w-[440px]"
+          draggable={false}
+          fetchPriority="high"
+        />
+
+        <motion.div
+          className="absolute top-[48%] right-0 z-20 flex items-center gap-3 rounded-[18px] border border-line bg-[rgba(20,18,17,0.72)] py-3.5 pr-[22px] pl-[13px] backdrop-blur-[10px] max-md:scale-[0.85] md:top-[45%]"
+          initial={{ opacity: 0, x: 18 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.9, delay: 0.9, ease }}
+        >
+          <span className="grid size-[34px] place-items-center rounded-full bg-[#3c1b09] text-brand-500">
+            <Volume2 className="size-[18px]" />
+          </span>
+          <span>
+            <strong className="block text-xs font-semibold">Hey Catt...</strong>
+            <small className="mt-[5px] block text-xs text-[#8d8985]">I&apos;m listening</small>
+          </span>
+        </motion.div>
+      </motion.div>
     </section>
   )
 }

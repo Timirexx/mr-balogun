@@ -217,7 +217,7 @@ export default function Tasks() {
             <button type="submit" className="btn-primary h-11 rounded-xl px-5 text-sm">
               Add task
             </button>
-            <button type="button" onClick={breakDown} className="btn-ghost h-11 px-4 text-sm" title="Ask Mr Balogun to break it down">
+            <button type="button" onClick={breakDown} className="btn-ghost h-11 px-4 text-sm" title="Ask CATT to break it down">
               <Sparkles className="hue-violet text-hue size-4" /> <span className="hidden sm:inline">Break it down</span>
             </button>
           </div>
@@ -247,7 +247,7 @@ export default function Tasks() {
           <EmptyState
             icon={<CircleCheck className="size-6" />}
             title={filter === 'completed' ? 'Nothing completed yet' : 'All clear'}
-            text={filter === 'completed' ? 'Finished tasks will show up here.' : 'Add a task above, or ask Mr Balogun to plan your day.'}
+            text={filter === 'completed' ? 'Finished tasks will show up here.' : 'Add a task above, or ask CATT to plan your day.'}
           />
         ) : (
           <ul>

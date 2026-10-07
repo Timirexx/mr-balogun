@@ -1,57 +1,54 @@
 @import "tailwindcss";
-@import "@fontsource-variable/inter";
-@import "@fontsource/instrument-serif/latin-400-italic.css";
+@import "@fontsource-variable/manrope";
+@import "@fontsource-variable/space-grotesk";
 
 @custom-variant midnight (&:where([data-theme="midnight"], [data-theme="midnight"] *));
 
 @theme {
-  /* Body: Inter. Display: Neue Montreal. Accent: Canela Italic.
-     Neue Montreal and Canela are commercial fonts used when installed; Switzer and
-     Instrument Serif are the licensed web fallbacks until web licenses are added. */
-  --font-sans: "Inter Variable", ui-sans-serif, system-ui, "Segoe UI", sans-serif;
-  --font-display: "Neue Montreal", "PP Neue Montreal", "NeueMontreal", "Switzer", "Inter Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-canela: "Canela", "Canela Light Trial", "Canela Regular Trial", "Instrument Serif", Georgia, serif;
+  /* Space Grotesk for display, Manrope for body — from the CATT design. */
+  --font-sans: "Manrope Variable", ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  --font-display: "Space Grotesk Variable", "Manrope Variable", ui-sans-serif, system-ui, sans-serif;
 
-  /* Surfaces — sampled from the Mr Balogun reference */
-  --color-ink-950: #00050c;
-  --color-ink-900: #000710;
-  --color-ink-850: #000a14;
-  --color-ink-800: #020d1a;
-  --color-ink-750: #041326;
-  --color-ink-700: #071b33;
-  --color-ink-600: #0b2644;
+  /* Surfaces — near-black, warm-shifted */
+  --color-ink-950: #040404;
+  --color-ink-900: #080808;
+  --color-ink-850: #0b0a09;
+  --color-ink-800: #141210;
+  --color-ink-750: #1b1917;
+  --color-ink-700: #231f1c;
+  --color-ink-600: #322c27;
 
-  /* Electric blue */
-  --color-brand-100: #d6ecff;
-  --color-brand-200: #a9d8ff;
-  --color-brand-300: #6cc0ff;
-  --color-brand-400: #3aa6ff;
-  --color-brand-500: #068cfc;
-  --color-brand-600: #0a72e0;
-  --color-brand-700: #0a56ad;
-  --color-brand-800: #0b3c78;
-  --color-brand-900: #0a2a55;
+  /* Catt orange */
+  --color-brand-100: #ffe6d1;
+  --color-brand-200: #ffc999;
+  --color-brand-300: #ff9b38;
+  --color-brand-400: #fa8a27;
+  --color-brand-500: #f47721;
+  --color-brand-600: #d9600f;
+  --color-brand-700: #b84c0d;
+  --color-brand-800: #8e3e09;
+  --color-brand-900: #4c210a;
 
   /* Text */
-  --color-fg: #eaf3ff;
-  --color-fg-soft: #c3d3ea;
-  --color-muted: #8ba0bd;
-  --color-subtle: #5d7290;
+  --color-fg: #f5f1ed;
+  --color-fg-soft: #c8bdb5;
+  --color-muted: #a4a2a1;
+  --color-subtle: #726b65;
 
   /* Lines */
-  --color-line: rgb(56 128 214 / 0.16);
-  --color-line-soft: rgb(56 128 214 / 0.09);
-  --color-line-strong: rgb(66 150 245 / 0.34);
+  --color-line: rgb(255 255 255 / 0.13);
+  --color-line-soft: rgb(255 255 255 / 0.07);
+  --color-line-strong: rgb(244 119 33 / 0.45);
 
-  --color-online: #22e3a1;
-  --color-danger: #ff5d73;
+  --color-online: #77bb8b;
+  --color-danger: #ff6b5d;
 
-  /* Champagne gold — reserved for Pro / premium moments */
-  --color-gold-100: #fbf0d8;
-  --color-gold-200: #f6e0b0;
-  --color-gold-300: #eecb85;
-  --color-gold-400: #e2b35d;
-  --color-gold-500: #c9953c;
+  /* Warm amber for the Pro moments */
+  --color-gold-100: #ffe9cf;
+  --color-gold-200: #ffd4a1;
+  --color-gold-300: #ffb166;
+  --color-gold-400: #f59238;
+  --color-gold-500: #d2700f;
 
   --radius-xl: 14px;
   --radius-2xl: 18px;
@@ -93,50 +90,50 @@
 }
 
 /* ---------- Hues ----------
-   Electric blue stays the identity. Each product area also owns a signature hue;
-   components read `--hue`, so `hue-emerald` on an element (or any ancestor) recolours
-   its icon boxes, tiles, badges and accent text. */
+   Catt orange is the identity, so the palette is near-monochrome. Components read
+   `--hue`; most areas resolve to orange, with a few cooler accents kept for places
+   the design uses them (project icons, status, destructive actions). */
 
 @utility hue-blue {
-  --hue: 58 166 255;
+  --hue: 244 119 33;
 }
 @utility hue-cyan {
-  --hue: 45 212 236;
+  --hue: 255 155 56;
 }
 @utility hue-violet {
-  --hue: 158 132 255;
+  --hue: 177 140 255;
 }
 @utility hue-emerald {
-  --hue: 52 211 153;
+  --hue: 119 187 139;
 }
 @utility hue-amber {
-  --hue: 250 186 64;
+  --hue: 250 160 56;
 }
 @utility hue-rose {
-  --hue: 251 113 133;
+  --hue: 255 107 93;
 }
 @utility hue-fuchsia {
-  --hue: 232 121 236;
+  --hue: 244 119 33;
 }
 @utility hue-gold {
-  --hue: 233 190 112;
+  --hue: 255 177 102;
 }
 @utility hue-slate {
-  --hue: 148 166 196;
+  --hue: 164 162 161;
 }
 
 @utility text-hue {
-  color: color-mix(in srgb, rgb(var(--hue, 58 166 255)) 78%, white);
+  color: color-mix(in srgb, rgb(var(--hue, 244 119 33)) 86%, white);
 }
 
 @utility bg-hue {
-  background-color: rgb(var(--hue, 58 166 255));
+  background-color: rgb(var(--hue, 244 119 33));
 }
 
 @utility badge-hue {
-  color: color-mix(in srgb, rgb(var(--hue, 58 166 255)) 70%, white);
-  background: rgb(var(--hue, 58 166 255) / 0.12);
-  border: 1px solid rgb(var(--hue, 58 166 255) / 0.32);
+  color: color-mix(in srgb, rgb(var(--hue, 244 119 33)) 72%, white);
+  background: rgb(var(--hue, 244 119 33) / 0.14);
+  border: 1px solid rgb(var(--hue, 244 119 33) / 0.34);
 }
 
 [data-glow="low"] {
@@ -175,13 +172,13 @@
   }
 
   ::selection {
-    background: rgb(6 140 252 / 0.35);
+    background: rgb(244 119 33 / 0.35);
     color: #fff;
   }
 
   * {
     scrollbar-width: thin;
-    scrollbar-color: rgb(66 150 245 / 0.25) transparent;
+    scrollbar-color: rgb(244 119 33 / 0.3) transparent;
   }
 
   *::-webkit-scrollbar {
@@ -189,7 +186,7 @@
     height: 8px;
   }
   *::-webkit-scrollbar-thumb {
-    background: rgb(66 150 245 / 0.22);
+    background: rgb(244 119 33 / 0.28);
     border-radius: 99px;
   }
   *::-webkit-scrollbar-track {
@@ -208,15 +205,31 @@
   }
 }
 
+/* ---------- Layout primitives (from the CATT design) ---------- */
+
+@utility wrap {
+  width: min(1120px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+@utility eyebrow {
+  margin: 0 0 18px;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  color: var(--color-brand-500);
+}
+
 /* ---------- Surfaces ---------- */
 
 @utility glass {
   position: relative;
   background:
-    linear-gradient(180deg, rgb(14 36 66 / 0.42), rgb(4 16 32 / 0.62));
+    linear-gradient(145deg, rgb(31 30 29 / 0.76), rgb(12 12 12 / 0.7));
   border: 1px solid var(--color-line);
   box-shadow:
-    inset 0 1px 0 rgb(140 200 255 / 0.06),
+    inset 0 1px 0 rgb(255 225 200 / 0.05),
     0 18px 50px -24px rgb(0 0 0 / 0.8);
   backdrop-filter: blur(14px) saturate(130%);
   -webkit-backdrop-filter: blur(14px) saturate(130%);
@@ -225,20 +238,20 @@
 @utility glass-strong {
   position: relative;
   background:
-    linear-gradient(180deg, rgb(12 34 64 / 0.78), rgb(3 13 27 / 0.9));
+    linear-gradient(145deg, rgb(33 31 29 / 0.88), rgb(11 10 9 / 0.92));
   border: 1px solid var(--color-line-strong);
   box-shadow:
-    inset 0 1px 0 rgb(150 210 255 / 0.08),
+    inset 0 1px 0 rgb(255 225 200 / 0.07),
     0 30px 80px -30px rgb(0 0 0 / 0.9),
-    0 0 calc(40px * var(--glow)) -10px rgb(6 140 252 / calc(0.25 * var(--glow)));
+    0 0 calc(40px * var(--glow)) -10px rgb(244 119 33 / calc(0.22 * var(--glow)));
   backdrop-filter: blur(20px) saturate(140%);
   -webkit-backdrop-filter: blur(20px) saturate(140%);
 }
 
 @utility tile {
   background:
-    radial-gradient(120% 90% at 0% 0%, rgb(var(--hue, 58 166 255) / 0.07), transparent 60%),
-    linear-gradient(180deg, rgb(10 30 56 / 0.5), rgb(3 13 26 / 0.55));
+    radial-gradient(120% 90% at 0% 0%, rgb(var(--hue, 244 119 33) / 0.07), transparent 60%),
+    linear-gradient(145deg, rgb(31 30 29 / 0.76), rgb(12 12 12 / 0.7));
   border: 1px solid var(--color-line);
   transition:
     border-color 0.25s ease,
@@ -246,11 +259,11 @@
     box-shadow 0.25s ease,
     transform 0.25s var(--ease-out-expo);
   &:hover {
-    border-color: rgb(var(--hue, 66 150 245) / 0.42);
+    border-color: rgb(var(--hue, 244 119 33) / 0.42);
     background:
-      radial-gradient(120% 90% at 0% 0%, rgb(var(--hue, 58 166 255) / 0.13), transparent 60%),
-      linear-gradient(180deg, rgb(12 38 72 / 0.6), rgb(4 16 32 / 0.65));
-    box-shadow: 0 0 calc(30px * var(--glow)) -12px rgb(var(--hue, 6 140 252) / calc(0.55 * var(--glow)));
+      radial-gradient(120% 90% at 0% 0%, rgb(var(--hue, 244 119 33) / 0.13), transparent 60%),
+      linear-gradient(145deg, rgb(41 38 35 / 0.85), rgb(15 14 13 / 0.78));
+    box-shadow: 0 0 calc(30px * var(--glow)) -12px rgb(var(--hue, 244 119 33) / calc(0.55 * var(--glow)));
   }
 }
 
@@ -261,7 +274,7 @@
     inset: -1px;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(140deg, rgb(110 190 255 / 0.6), transparent 34%, transparent 62%, rgb(150 120 255 / 0.45));
+    background: linear-gradient(140deg, rgb(255 155 56 / 0.6), transparent 34%, transparent 62%, rgb(244 119 33 / 0.4));
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -277,7 +290,7 @@
     inset: -1px;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(140deg, rgb(246 224 176 / 0.75), rgb(226 179 93 / 0.15) 40%, transparent 60%, rgb(226 179 93 / 0.5));
+    background: linear-gradient(140deg, rgb(255 212 161 / 0.75), rgb(244 119 33 / 0.15) 40%, transparent 60%, rgb(244 119 33 / 0.5));
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -289,28 +302,23 @@
   display: grid;
   place-items: center;
   border-radius: 12px;
-  color: color-mix(in srgb, rgb(var(--hue, 58 166 255)) 75%, white);
-  background: linear-gradient(180deg, rgb(var(--hue, 58 166 255) / 0.17), rgb(var(--hue, 58 166 255) / 0.05));
-  border: 1px solid rgb(var(--hue, 58 166 255) / 0.34);
+  color: color-mix(in srgb, rgb(var(--hue, 244 119 33)) 75%, white);
+  background: linear-gradient(180deg, rgb(var(--hue, 244 119 33) / 0.17), rgb(var(--hue, 244 119 33) / 0.05));
+  border: 1px solid rgb(var(--hue, 244 119 33) / 0.34);
   box-shadow:
-    inset 0 0 14px rgb(var(--hue, 58 166 255) / 0.13),
-    0 0 calc(18px * var(--glow)) -6px rgb(var(--hue, 58 166 255) / calc(0.55 * var(--glow)));
+    inset 0 0 14px rgb(var(--hue, 244 119 33) / 0.13),
+    0 0 calc(18px * var(--glow)) -6px rgb(var(--hue, 244 119 33) / calc(0.55 * var(--glow)));
 }
 
 /* ---------- Text ---------- */
 
+/* Accent words inside headings are simply orange, as in the CATT design. */
 @utility font-accent {
-  font-family: var(--font-canela);
-  font-style: italic;
-  font-weight: 300;
-  font-size: 1.06em;
-  letter-spacing: -0.005em;
-  padding-inline-end: 0.06em;
-  font-synthesis: none;
+  color: var(--color-brand-500);
 }
 
 @utility text-brand-gradient {
-  background: linear-gradient(100deg, #a6dcff 0%, #4fb0ff 34%, #2f86ff 62%, #7f78ff 100%);
+  background: linear-gradient(100deg, #ffc999 0%, #ff9b38 38%, #f47721 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -319,9 +327,9 @@
 @utility text-hue-gradient {
   background: linear-gradient(
     100deg,
-    color-mix(in srgb, rgb(var(--hue, 58 166 255)) 45%, white) 0%,
-    rgb(var(--hue, 58 166 255)) 70%,
-    color-mix(in srgb, rgb(var(--hue, 58 166 255)) 80%, rgb(127 120 255)) 100%
+    color-mix(in srgb, rgb(var(--hue, 244 119 33)) 45%, white) 0%,
+    rgb(var(--hue, 244 119 33)) 70%,
+    color-mix(in srgb, rgb(var(--hue, 244 119 33)) 85%, #b84c0d) 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -329,14 +337,14 @@
 }
 
 @utility text-gold-gradient {
-  background: linear-gradient(100deg, #fbf0d8 0%, #eecb85 45%, #c9953c 100%);
+  background: linear-gradient(100deg, #ffe9cf 0%, #ffb166 45%, #d2700f 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 @utility text-glow {
-  text-shadow: 0 0 calc(28px * var(--glow)) rgb(6 140 252 / calc(0.55 * var(--glow)));
+  text-shadow: 0 0 calc(28px * var(--glow)) rgb(244 119 33 / calc(0.45 * var(--glow)));
 }
 
 /* ---------- Controls ---------- */
@@ -350,11 +358,11 @@
   font-family: var(--font-display);
   font-weight: 500;
   color: #fff;
-  background: linear-gradient(135deg, #3aaaff 0%, #1b80ff 52%, #4f62ff 100%);
+  background: linear-gradient(120deg, #ff8b21, #b84c0d);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.25),
-    0 0 0 1px rgb(90 160 255 / 0.4),
-    0 10px calc(34px * var(--glow)) -8px rgb(30 120 255 / calc(0.85 * var(--glow)));
+    0 0 0 1px rgb(255 155 56 / 0.3),
+    0 0 calc(30px * var(--glow)) -2px rgb(242 111 18 / calc(0.5 * var(--glow)));
   transition:
     transform 0.2s var(--ease-out-expo),
     box-shadow 0.25s ease,
@@ -363,8 +371,8 @@
     filter: brightness(1.1);
     box-shadow:
       inset 0 1px 0 rgb(255 255 255 / 0.3),
-      0 0 0 1px rgb(120 190 255 / 0.55),
-      0 12px calc(44px * var(--glow)) -6px rgb(6 140 252 / var(--glow));
+      0 0 0 1px rgb(255 177 102 / 0.5),
+      0 0 calc(40px * var(--glow)) -2px rgb(242 111 18 / calc(0.7 * var(--glow)));
   }
   &:active {
     transform: scale(0.97);
@@ -377,10 +385,10 @@
 
 @utility bubble-user {
   color: #fff;
-  background: linear-gradient(135deg, #34a3ff 0%, #1b74ff 55%, #5a5cff 100%);
+  background: linear-gradient(120deg, #c2560f, #7d350a);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.18),
-    0 10px 30px -12px rgb(40 110 255 / 0.9);
+    0 10px 30px -14px rgb(244 119 33 / 0.7);
 }
 
 @utility btn-gold {
@@ -392,11 +400,11 @@
   font-family: var(--font-display);
   font-weight: 600;
   color: #1a1206;
-  background: linear-gradient(135deg, #fbf0d8 0%, #eecb85 45%, #d6a24a 100%);
+  background: linear-gradient(135deg, #ffe9cf 0%, #ffb166 45%, #e07b13 100%);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.6),
-    0 0 0 1px rgb(238 203 133 / 0.5),
-    0 10px calc(30px * var(--glow)) -10px rgb(226 179 93 / calc(0.8 * var(--glow)));
+    0 0 0 1px rgb(255 177 102 / 0.5),
+    0 10px calc(30px * var(--glow)) -10px rgb(244 119 33 / calc(0.8 * var(--glow)));
   transition:
     transform 0.2s var(--ease-out-expo),
     filter 0.2s ease;
@@ -416,7 +424,7 @@
   border-radius: 10px;
   color: var(--color-fg-soft);
   border: 1px solid var(--color-line);
-  background: rgb(8 26 50 / 0.45);
+  background: rgb(22 20 18 / 0.7);
   transition:
     border-color 0.2s ease,
     background 0.2s ease,
@@ -424,7 +432,7 @@
   &:hover {
     color: var(--color-fg);
     border-color: var(--color-line-strong);
-    background: rgb(12 40 76 / 0.55);
+    background: rgb(34 30 27 / 0.85);
   }
 }
 
@@ -437,8 +445,8 @@
   padding: 0.45rem 0.85rem;
   font-size: 0.8125rem;
   color: var(--color-fg-soft);
-  border: 1px solid rgb(56 128 214 / 0.26);
-  background: rgb(6 22 44 / 0.55);
+  border: 1px solid rgb(255 255 255 / 0.14);
+  background: rgb(20 18 16 / 0.7);
   transition:
     border-color 0.2s ease,
     color 0.2s ease,
@@ -446,39 +454,39 @@
     background 0.2s ease;
   &:hover {
     color: #fff;
-    border-color: rgb(66 160 255 / 0.6);
-    background: rgb(10 40 80 / 0.6);
-    box-shadow: 0 0 calc(20px * var(--glow)) -6px rgb(6 140 252 / calc(0.6 * var(--glow)));
+    border-color: rgb(244 119 33 / 0.6);
+    background: rgb(40 32 26 / 0.8);
+    box-shadow: 0 0 calc(20px * var(--glow)) -6px rgb(244 119 33 / calc(0.6 * var(--glow)));
   }
 }
 
 @utility option-active {
   color: #fff;
-  border-color: rgb(var(--hue, 58 166 255) / 0.8);
-  background: rgb(var(--hue, 58 166 255) / 0.12);
+  border-color: rgb(var(--hue, 244 119 33) / 0.8);
+  background: rgb(var(--hue, 244 119 33) / 0.12);
   box-shadow:
-    0 0 20px -6px rgb(var(--hue, 58 166 255) / 0.8),
-    inset 0 0 12px rgb(var(--hue, 58 166 255) / 0.15);
+    0 0 20px -6px rgb(var(--hue, 244 119 33) / 0.8),
+    inset 0 0 12px rgb(var(--hue, 244 119 33) / 0.15);
 }
 
 @utility switch-on {
-  border-color: rgb(var(--hue, 58 166 255) / 0.75);
-  background: rgb(var(--hue, 6 140 252));
-  box-shadow: 0 0 14px -2px rgb(var(--hue, 6 140 252) / 0.8);
+  border-color: rgb(var(--hue, 244 119 33) / 0.75);
+  background: rgb(var(--hue, 244 119 33));
+  box-shadow: 0 0 14px -2px rgb(var(--hue, 244 119 33) / 0.8);
 }
 
 @utility chip-active {
   color: #fff;
-  border-color: rgb(var(--hue, 58 166 255) / 0.7);
-  background: rgb(var(--hue, 58 166 255) / 0.15);
-  box-shadow: 0 0 calc(18px * var(--glow)) -6px rgb(var(--hue, 58 166 255) / calc(0.7 * var(--glow)));
+  border-color: rgb(var(--hue, 244 119 33) / 0.7);
+  background: rgb(var(--hue, 244 119 33) / 0.15);
+  box-shadow: 0 0 calc(18px * var(--glow)) -6px rgb(var(--hue, 244 119 33) / calc(0.7 * var(--glow)));
 }
 
 @utility field {
   width: 100%;
   border-radius: 12px;
   border: 1px solid var(--color-line);
-  background: rgb(2 12 26 / 0.7);
+  background: rgb(21 19 17 / 0.9);
   color: var(--color-fg);
   padding: 0.65rem 0.9rem;
   font-size: 0.875rem;
@@ -490,8 +498,8 @@
   }
   &:focus {
     outline: none;
-    border-color: rgb(66 160 255 / 0.6);
-    box-shadow: 0 0 0 3px rgb(6 140 252 / 0.15);
+    border-color: rgb(244 119 33 / 0.6);
+    box-shadow: 0 0 0 3px rgb(244 119 33 / 0.16);
   }
 }
 
@@ -510,28 +518,28 @@
 
 @utility bg-cinematic {
   background:
-    radial-gradient(1200px 600px at 75% -10%, rgb(10 80 170 / 0.22), transparent 60%),
-    radial-gradient(900px 520px at 100% 70%, rgb(96 70 220 / 0.08), transparent 62%),
-    radial-gradient(800px 500px at 0% 100%, rgb(8 120 160 / 0.1), transparent 60%),
+    radial-gradient(1100px 560px at 70% -12%, rgb(140 58 8 / 0.42), transparent 58%),
+    radial-gradient(760px 460px at 100% 72%, rgb(120 48 6 / 0.16), transparent 62%),
+    radial-gradient(700px 440px at -5% 100%, rgb(110 44 6 / 0.14), transparent 60%),
     var(--color-ink-900);
 }
 
 @utility bg-aurora {
   background:
-    radial-gradient(40% 50% at 30% 40%, rgb(30 120 255 / 0.22), transparent 70%),
-    radial-gradient(35% 45% at 70% 35%, rgb(124 92 255 / 0.18), transparent 70%),
-    radial-gradient(30% 40% at 55% 75%, rgb(34 200 230 / 0.12), transparent 70%);
+    radial-gradient(40% 50% at 30% 40%, rgb(244 119 33 / 0.26), transparent 70%),
+    radial-gradient(35% 45% at 70% 35%, rgb(255 155 56 / 0.18), transparent 70%),
+    radial-gradient(30% 40% at 55% 75%, rgb(184 76 13 / 0.18), transparent 70%);
 }
 
 @utility bg-grid {
   background-image:
-    linear-gradient(rgb(66 150 245 / 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(66 150 245 / 0.05) 1px, transparent 1px);
+    linear-gradient(rgb(255 255 255 / 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.04) 1px, transparent 1px);
   background-size: 56px 56px;
 }
 
 @utility skeleton {
-  background: linear-gradient(90deg, rgb(20 50 90 / 0.25) 0%, rgb(60 130 220 / 0.25) 50%, rgb(20 50 90 / 0.25) 100%);
+  background: linear-gradient(90deg, rgb(40 34 30 / 0.4) 0%, rgb(120 60 20 / 0.4) 50%, rgb(40 34 30 / 0.4) 100%);
   background-size: 200% 100%;
   animation: var(--animate-shimmer);
 }

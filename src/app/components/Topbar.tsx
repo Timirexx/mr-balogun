@@ -94,7 +94,7 @@ export function Topbar() {
       )}
     >
       <Link to="/app" className="md:hidden" aria-label="Home">
-        <LogoMark className="size-8" />
+        <LogoMark className="size-8 text-[26px]" />
       </Link>
 
       <button

@@ -16,7 +16,7 @@ function useDocumentTitle() {
   const { pathname } = useLocation()
   useEffect(() => {
     const item = [...NAV].reverse().find((n) => pathname.startsWith(n.to))
-    document.title = `${item?.label ?? 'Home'} · Mr Balogun`
+    document.title = `${item?.label ?? 'Home'} · CATT`
   }, [pathname])
 }
 

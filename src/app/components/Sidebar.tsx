@@ -45,7 +45,7 @@ export function NavItemLink({ to, label, icon: Icon, hue, end, onClick, rail }: 
 
 export function UpgradeModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
-    <Modal open={open} onClose={onClose} title="Mr Balogun Pro">
+    <Modal open={open} onClose={onClose} title="CATT Pro">
       <p className="text-sm leading-relaxed text-muted">Pro is in early access. It unlocks advanced AI models, live web research with sources, unlimited memory and natural voice conversations.</p>
       <ul className="mt-4 space-y-2 text-sm text-fg-soft">
         {['Advanced AI models', 'Live web research', 'Unlimited memory', 'Natural voice conversations'].map((f) => (
@@ -73,12 +73,12 @@ export function Sidebar() {
   return (
     <aside className="fixed inset-y-0 left-0 z-40 hidden flex-col overflow-hidden border-r border-line-soft bg-ink-850/95 md:flex md:w-[76px] lg:w-[248px]">
       <div className="flex h-[72px] shrink-0 items-center px-6 md:max-lg:justify-center md:max-lg:px-0">
-        <NavLink to="/app" aria-label="Mr Balogun home">
+        <NavLink to="/app" aria-label="CATT home">
           <span className="hidden lg:block">
             <Logo />
           </span>
           <span className="block lg:hidden">
-            <LogoMark className="size-8" />
+            <LogoMark className="size-8 text-[26px]" />
           </span>
         </NavLink>
       </div>
@@ -111,7 +111,7 @@ export function Sidebar() {
           <p className="text-sm leading-relaxed text-fg-soft/80">“Better questions.
             <br />
             Bigger possibilities.”</p>
-          <footer className="mt-1.5 text-xs text-subtle">— Mr Balogun</footer>
+          <footer className="mt-1.5 text-xs text-subtle">— CATT</footer>
         </blockquote>
         <LightStreaks className="-bottom-6 -left-10 h-32 w-[130%] opacity-70" />
       </div>

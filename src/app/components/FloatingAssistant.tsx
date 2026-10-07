@@ -62,12 +62,12 @@ export function FloatingAssistant() {
               onClick={() => setOpen(true)}
               role="button"
               tabIndex={0}
-              aria-label="Open Mr Balogun assistant"
+              aria-label="Open CATT assistant"
               onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setOpen(true)}
             >
               <AIAvatar size={46} />
               <span className="pr-2">
-                <span className="block text-sm font-medium text-white">Mr Balogun</span>
+                <span className="block text-sm font-medium text-white">CATT</span>
                 <span className="block text-[0.7rem] text-muted">AI Assistant</span>
               </span>
               <Waveform active={speaking || streaming} bars={7} className="h-5" />
@@ -78,7 +78,7 @@ export function FloatingAssistant() {
                   setTimeout(() => composer.current?.startVoice(), 350)
                 }}
                 className="ml-1 grid size-11 place-items-center rounded-full bg-gradient-to-b from-brand-400 to-brand-600 text-white shadow-[0_0_20px_rgba(6,140,252,0.9)] transition hover:brightness-110"
-                aria-label="Talk to Mr Balogun"
+                aria-label="Talk to CATT"
               >
                 <Mic className="size-5" />
               </button>
@@ -88,7 +88,7 @@ export function FloatingAssistant() {
             <button
               onClick={() => setOpen(true)}
               className={cn('relative grid size-14 place-items-center rounded-full', !onChat && 'xl:hidden')}
-              aria-label="Open Mr Balogun assistant"
+              aria-label="Open CATT assistant"
             >
               <span className="animate-pulse-ring absolute inset-0 rounded-full border border-brand-400/60" />
               <AIAvatar size={56} className="shadow-[0_0_30px_rgba(6,140,252,0.7)]" />
@@ -112,7 +112,7 @@ export function FloatingAssistant() {
             />
             <motion.section
               key="panel"
-              aria-label="Mr Balogun assistant"
+              aria-label="CATT assistant"
               initial={{ opacity: 0, y: 40, scale: 0.92 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 30, scale: 0.94 }}
@@ -123,7 +123,7 @@ export function FloatingAssistant() {
               <header className="flex items-center gap-3 border-b border-line px-4 py-3">
                 <AIAvatar size={38} online />
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-medium text-white">Mr Balogun</p>
+                  <p className="text-sm font-medium text-white">CATT</p>
                   <p className={cn('flex items-center gap-1.5 text-xs', status === 'Online' ? 'text-online' : 'text-brand-300')}>
                     <span className={cn('size-1.5 rounded-full', status === 'Online' ? 'bg-online' : 'animate-pulse bg-brand-400')} />
                     {status}
@@ -194,7 +194,7 @@ export function FloatingAssistant() {
                   busy={streaming}
                   onStop={() => convId && stopStreaming(convId)}
                   onSend={(t, f, v) => send(t, f, v)}
-                  placeholder="Ask Mr Balogun…"
+                  placeholder="Ask CATT…"
                   autoFocus
                 />
               </div>

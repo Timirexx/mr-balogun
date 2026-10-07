@@ -36,7 +36,7 @@ function ThemeController() {
 function BootScreen() {
   return (
     <div className="grid min-h-svh place-items-center bg-ink-900">
-      <LogoMark className="size-12 animate-pulse" />
+      <LogoMark className="size-12 animate-pulse text-[40px]" />
     </div>
   )
 }

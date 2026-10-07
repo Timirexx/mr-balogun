@@ -83,15 +83,16 @@ function HomeHero() {
       {/* Portrait */}
       <motion.div
         aria-hidden
-        className="pointer-events-none absolute -top-16 -right-4 h-[330px] w-[92%] sm:-right-6 sm:w-[64%] md:-top-[72px] md:h-[420px] md:w-[52%] lg:h-[440px] lg:w-[60%] xl:-right-2 xl:w-[56%]"
+        className="pointer-events-none absolute -top-2 right-0 h-[250px] w-[62%] sm:w-[48%] md:h-[300px] md:w-[40%] lg:h-[330px] lg:w-[38%]"
         initial={{ opacity: 0, scale: 1.04 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.4, ease }}
       >
+        <span className="pointer-events-none absolute right-[6%] bottom-[2%] h-[38%] w-[62%] rounded-full bg-[radial-gradient(ellipse,rgba(247,103,11,0.3),transparent_65%)] blur-[14px]" />
         <img
           src="/avatar/hero.webp"
           alt=""
-          className="h-full w-full object-cover object-[50%_8%] opacity-60 [mask-composite:intersect] [mask-image:radial-gradient(ellipse_52%_70%_at_55%_38%,#000_55%,transparent_100%),linear-gradient(#000_62%,transparent)] sm:opacity-75 lg:opacity-100"
+          className="relative h-full w-full object-contain object-right-bottom opacity-70 [mask-image:linear-gradient(#000_82%,transparent)] sm:opacity-85 lg:opacity-100"
         />
       </motion.div>
 
@@ -128,7 +129,7 @@ function HomeHero() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Ask me anything, or type a task…"
-            aria-label="Ask Mr Balogun anything"
+            aria-label="Ask CATT anything"
             className="min-w-0 flex-1 bg-transparent text-[0.95rem] text-white placeholder:text-fg-soft/60 focus:outline-none"
           />
           <button

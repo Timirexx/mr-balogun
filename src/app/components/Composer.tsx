@@ -63,7 +63,7 @@ function PendingChip({ file, onRemove }: { file: File; onRemove: () => void }) {
   )
 }
 
-export function Composer({ onSend, onStop, busy, placeholder = 'Message Mr Balogun…', compact, autoFocus, ref }: ComposerProps) {
+export function Composer({ onSend, onStop, busy, placeholder = 'Message CATT…', compact, autoFocus, ref }: ComposerProps) {
   const [text, setText] = useState('')
   const [pending, setPending] = useState<File[]>([])
   const [uploading, setUploading] = useState(false)

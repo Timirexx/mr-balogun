@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 
 export function TypingDots() {
   return (
-    <span className="flex items-center gap-1 py-1" aria-label="Mr Balogun is typing">
+    <span className="flex items-center gap-1 py-1" aria-label="CATT is typing">
       {[0, 1, 2].map((i) => (
         <motion.span
           key={i}
