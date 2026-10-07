@@ -75,6 +75,12 @@
   @keyframes blink {
     to { visibility: hidden; }
   }
+  @keyframes cat-pulse {
+    50% { transform: scale(1.15); opacity: 0.55; }
+  }
+  @keyframes cat-float {
+    50% { transform: translateY(-8px); }
+  }
 }
 
 [data-theme="midnight"] {

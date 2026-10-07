@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowLeft, Check, Copy, FilePlus2, MessageSquareMore, RotateCcw, Sparkles, Square } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
 import { Markdown } from '@/components/ui/Markdown'
 import { toast } from '@/components/ui/Toast'
@@ -16,8 +16,9 @@ import { Page, Panel } from '../components/PageHeader'
 
 const FILE_TOOLS = ['summarize', 'rewrite']
 
-export default function ToolRunner() {
-  const { toolId } = useParams()
+export default function ToolRunner({ toolId: fixedId, intro }: { toolId?: string; intro?: ReactNode } = {}) {
+  const params = useParams()
+  const toolId = fixedId ?? params.toolId
   const tool = getTool(toolId)
   const navigate = useNavigate()
   const files = useFiles((s) => s.files)
@@ -36,7 +37,7 @@ export default function ToolRunner() {
     return () => abortRef.current?.abort()
   }, [toolId])
 
-  if (!tool) return <Navigate to="/app/tools" replace />
+  if (!tool) return <Navigate to="/app/skills" replace />
 
   const textFiles = files.filter(isTextLike)
   const canRun = !!(input.trim() || file) && !running
@@ -73,7 +74,7 @@ export default function ToolRunner() {
 
   return (
     <Page>
-      <Link to="/app/tools" className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-white">
+      <Link to="/app/skills" className={cn("inline-flex items-center gap-1.5 text-sm text-muted hover:text-white", fixedId && "hidden")}>
         <ArrowLeft className="size-4" /> All tools
       </Link>
 
@@ -86,6 +87,8 @@ export default function ToolRunner() {
           <p className="mt-1 text-sm text-muted">{tool.description}</p>
         </div>
       </div>
+
+      {intro}
 
       <div className="mt-6 grid gap-5 lg:grid-cols-2">
         <Panel className="flex flex-col p-4 sm:p-5">

@@ -23,6 +23,7 @@ export interface Conversation {
   updatedAt: number
   messages: ChatMessage[]
   pinned?: boolean
+  projectId?: string
 }
 
 export type Priority = 'low' | 'medium' | 'high'

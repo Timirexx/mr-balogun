@@ -1,86 +1,69 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { Ellipsis, X } from 'lucide-react'
-import { useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
-import { HUE } from '@/lib/hues'
+import { Logo } from '@/components/brand/Logo'
+import { useTasks } from '@/lib/store/tasks'
 import { cn } from '@/lib/utils'
 import { MOBILE_TABS, NAV } from '../nav'
+import { NavItemLink } from './Sidebar'
 
-export function MobileNav() {
-  const [more, setMore] = useState(false)
+/** Bottom tab bar for the common destinations, plus a full drawer for the rest. */
+export function MobileNav({ open, onOpen, onClose }: { open: boolean; onOpen: () => void; onClose: () => void }) {
   const { pathname } = useLocation()
+  const pending = useTasks((s) => s.tasks.filter((t) => !t.done).length)
   const tabs = NAV.filter((n) => MOBILE_TABS.includes(n.to))
-  const rest = NAV.filter((n) => !MOBILE_TABS.includes(n.to))
-  const moreActive = rest.some((n) => pathname.startsWith(n.to))
+  const restActive = NAV.some((n) => !MOBILE_TABS.includes(n.to) && pathname.startsWith(n.to) && n.to !== '/app')
 
   return (
     <>
-      <nav
-        className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-ink-900/90 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl md:hidden"
-        aria-label="Main"
-      >
+      <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-[rgba(11,10,9,0.92)] pb-[env(safe-area-inset-bottom)] backdrop-blur-xl md:hidden" aria-label="Main">
         <ul className="grid h-16 grid-cols-5">
-          {tabs.map(({ to, label, icon: Icon, end, hue }) => (
+          {tabs.map(({ to, label, icon: Icon, end }) => (
             <li key={to}>
-              <NavLink to={to} end={end} className={cn('relative flex h-full flex-col items-center justify-center gap-1', HUE[hue])}>
+              <NavLink to={to} end={end} className="relative flex h-full flex-col items-center justify-center gap-1">
                 {({ isActive }) => (
                   <>
-                    {isActive && (
-                      <motion.span layoutId="mobile-tab" className="bg-hue absolute top-0 h-0.5 w-8 rounded-full shadow-[0_0_10px_rgb(var(--hue))]" />
-                    )}
-                    <Icon className={cn('size-[22px]', isActive ? 'text-hue drop-shadow-[0_0_6px_rgb(var(--hue)/0.8)]' : 'text-muted')} strokeWidth={1.7} />
-                    <span className={cn('text-[0.66rem]', isActive ? 'text-white' : 'text-muted')}>{label}</span>
+                    {isActive && <motion.span layoutId="mobile-tab" className="absolute top-0 h-0.5 w-8 rounded-full bg-brand-500 shadow-[0_0_10px_#f47721]" />}
+                    <Icon className={cn('size-[22px]', isActive ? 'text-brand-500' : 'text-[#928c86]')} />
+                    <span className={cn('font-display text-[0.66rem]', isActive ? 'text-white' : 'text-[#928c86]')}>{label}</span>
                   </>
                 )}
               </NavLink>
             </li>
           ))}
           <li>
-            <button onClick={() => setMore(true)} className="relative flex h-full w-full flex-col items-center justify-center gap-1" aria-label="More sections">
-              {moreActive && <span className="absolute top-0 h-0.5 w-8 rounded-full bg-brand-400 shadow-[0_0_10px_rgba(58,166,255,1)]" />}
-              <Ellipsis className={cn('size-[22px]', moreActive ? 'text-brand-300' : 'text-muted')} />
-              <span className={cn('text-[0.66rem]', moreActive ? 'text-white' : 'text-muted')}>More</span>
+            <button onClick={open ? onClose : onOpen} className="relative flex h-full w-full flex-col items-center justify-center gap-1" aria-label="More sections">
+              {restActive && <span className="absolute top-0 h-0.5 w-8 rounded-full bg-brand-500 shadow-[0_0_10px_#f47721]" />}
+              <Ellipsis className={cn('size-[22px]', restActive ? 'text-brand-500' : 'text-[#928c86]')} />
+              <span className={cn('font-display text-[0.66rem]', restActive ? 'text-white' : 'text-[#928c86]')}>More</span>
             </button>
           </li>
         </ul>
       </nav>
 
       <AnimatePresence>
-        {more && (
+        {open && (
           <motion.div className="fixed inset-0 z-[60] md:hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            <div className="absolute inset-0 bg-ink-950/70 backdrop-blur-sm" onClick={() => setMore(false)} />
+            <div className="absolute inset-0 bg-ink-950/70 backdrop-blur-sm" onClick={onClose} />
             <motion.div
-              className="glass-strong absolute inset-x-0 bottom-0 rounded-t-3xl px-4 pt-3 pb-[calc(1.5rem+env(safe-area-inset-bottom))]"
-              initial={{ y: '100%' }}
-              animate={{ y: 0 }}
-              exit={{ y: '100%' }}
-              transition={{ type: 'spring', stiffness: 380, damping: 36 }}
+              className="absolute inset-y-0 left-0 flex w-[82%] max-w-[280px] flex-col border-r border-line bg-[rgba(11,10,9,0.97)] px-4 pt-6 pb-5 backdrop-blur-xl"
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'spring', stiffness: 380, damping: 38 }}
             >
-              <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-white/15" />
-              <div className="mb-3 flex items-center justify-between px-1">
-                <p className="text-sm font-medium text-white">More</p>
-                <button onClick={() => setMore(false)} className="grid size-8 place-items-center rounded-lg text-muted" aria-label="Close">
+              <div className="flex items-center justify-between px-2 pb-5">
+                <Logo />
+                <button onClick={onClose} className="grid size-8 place-items-center rounded-lg text-muted hover:text-white" aria-label="Close navigation">
                   <X className="size-4" />
                 </button>
               </div>
-              <ul className="grid grid-cols-2 gap-2.5">
-                {rest.map(({ to, label, icon: Icon, hue }) => (
-                  <li key={to}>
-                    <NavLink
-                      to={to}
-                      onClick={() => setMore(false)}
-                      className={({ isActive }) =>
-                        cn('tile flex items-center gap-3 rounded-2xl p-4', HUE[hue], isActive && 'border-[rgb(var(--hue)/0.6)]')
-                      }
-                    >
-                      <span className="icon-box size-10">
-                        <Icon className="size-5" />
-                      </span>
-                      <span className="text-sm text-fg">{label}</span>
-                    </NavLink>
-                  </li>
+              <p className="font-display px-3 pt-2 pb-2.5 text-[9px] tracking-[2px] text-[#6e6862]">WORKSPACE</p>
+              <nav className="no-scrollbar flex flex-1 flex-col gap-1 overflow-y-auto" aria-label="All sections">
+                {NAV.map((item) => (
+                  <NavItemLink key={item.to} {...item} onClick={onClose} badge={item.to === '/app/tasks' ? pending : undefined} />
                 ))}
-              </ul>
+              </nav>
             </motion.div>
           </motion.div>
         )}

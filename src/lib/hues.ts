@@ -15,15 +15,19 @@ export const HUE: Record<Hue, string> = {
   slate: 'hue-slate',
 }
 
+// The CATT design is near-monochrome, so every area reads as orange. The hue
+// mechanism stays so individual components can still opt into an accent.
 export const AREA_HUE = {
   home: 'blue',
   chat: 'blue',
-  tasks: 'emerald',
-  files: 'amber',
-  memory: 'violet',
-  calendar: 'cyan',
-  tools: 'fuchsia',
-  settings: 'slate',
+  tasks: 'blue',
+  files: 'blue',
+  memory: 'blue',
+  calendar: 'blue',
+  tools: 'blue',
+  research: 'blue',
+  projects: 'blue',
+  settings: 'blue',
 } as const satisfies Record<string, Hue>
 
 export const ACTIVITY_HUE: Record<ActivityKind, Hue> = {

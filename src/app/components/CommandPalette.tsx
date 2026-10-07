@@ -66,7 +66,7 @@ export function CommandPalette() {
       })
     }
     NAV.filter((n) => match(n.label)).forEach((n) => out.push({ id: n.to, group: 'Go to', label: n.label, icon: n.icon, run: go(n.to) }))
-    TOOLS.filter((t) => match(t.name) || match(t.tagline)).forEach((t) => out.push({ id: `tool-${t.id}`, group: 'Tools', label: t.name, hint: t.tagline, icon: t.icon, run: go(`/app/tools/${t.id}`) }))
+    TOOLS.filter((t) => match(t.name) || match(t.tagline)).forEach((t) => out.push({ id: `tool-${t.id}`, group: 'Tools', label: t.name, hint: t.tagline, icon: t.icon, run: go(`/app/skills/${t.id}`) }))
     if (query) {
       conversations
         .filter((c) => match(c.title) || c.messages.some((m) => match(m.content)))

@@ -11,6 +11,7 @@ interface ChatState {
   truncateFrom: (convId: string, msgId: string) => void
   rename: (convId: string, title: string) => void
   togglePin: (convId: string) => void
+  assignProject: (convId: string, projectId: string | undefined) => void
   remove: (convId: string) => void
   clear: () => void
 }
@@ -96,6 +97,8 @@ export const useChat = create<ChatState>()(
         set({ conversations: get().conversations.map((c) => (c.id === convId ? { ...c, title } : c)) }),
       togglePin: (convId) =>
         set({ conversations: get().conversations.map((c) => (c.id === convId ? { ...c, pinned: !c.pinned } : c)) }),
+      assignProject: (convId, projectId) =>
+        set({ conversations: get().conversations.map((c) => (c.id === convId ? { ...c, projectId } : c)) }),
       remove: (convId) => set({ conversations: get().conversations.filter((c) => c.id !== convId) }),
       clear: () => set({ conversations: [] }),
     }),

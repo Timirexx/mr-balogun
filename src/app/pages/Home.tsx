@@ -44,7 +44,7 @@ const rise = (i: number) => ({
 
 const CHIPS: { label: string; hue: Hue; prompt?: string; to?: string }[] = [
   { label: 'Plan my day', hue: 'emerald', prompt: 'Plan my day' },
-  { label: 'Summarize this', hue: 'cyan', to: '/app/tools/summarize' },
+  { label: 'Summarize this', hue: 'cyan', to: '/app/skills/summarize' },
   { label: 'Create something', hue: 'violet', prompt: 'Create something' },
   { label: 'Help me decide', hue: 'amber', prompt: 'Help me decide' },
 ]
@@ -318,11 +318,11 @@ function AssistantPanel() {
 
 function QuickActions() {
   const items: { to: string; icon: LucideIcon; label: string; hue: Hue }[] = [
-    { to: '/app/tools/write', icon: FileText, label: 'Create a document', hue: 'violet' },
-    { to: '/app/tools/summarize', icon: FileText, label: 'Summarize a file', hue: 'cyan' },
-    { to: '/app/tools/plan', icon: CalendarDays, label: 'Plan my day', hue: 'emerald' },
-    { to: '/app/tools/research', icon: Search, label: 'Get research', hue: 'blue' },
-    { to: '/app/tools/email', icon: Mail, label: 'Draft an email', hue: 'fuchsia' },
+    { to: '/app/skills/write', icon: FileText, label: 'Create a document', hue: 'violet' },
+    { to: '/app/skills/summarize', icon: FileText, label: 'Summarize a file', hue: 'cyan' },
+    { to: '/app/skills/plan', icon: CalendarDays, label: 'Plan my day', hue: 'emerald' },
+    { to: '/app/research', icon: Search, label: 'Get research', hue: 'blue' },
+    { to: '/app/skills/email', icon: Mail, label: 'Draft an email', hue: 'fuchsia' },
   ]
   return (
     <Panel className="p-4">

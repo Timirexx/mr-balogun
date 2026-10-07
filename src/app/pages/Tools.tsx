@@ -19,7 +19,7 @@ export default function Tools() {
 
   return (
     <Page>
-      <PageHeader title="AI Tools" subtitle="Purpose-built assistants for research, writing, planning and thinking." />
+      <PageHeader title="Choose how Catt thinks." subtitle="Switch skills to match the work in front of you." />
 
       <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="no-scrollbar -mx-4 flex gap-1.5 overflow-x-auto px-4 sm:mx-0 sm:px-0">
@@ -39,7 +39,7 @@ export default function Tools() {
       <ul className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {list.map((t, i) => (
           <motion.li key={t.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}>
-            <Link to={`/app/tools/${t.id}`} className={cn('tile group relative flex h-full flex-col overflow-hidden rounded-2xl p-5', toolHue(t))}>
+            <Link to={`/app/skills/${t.id}`} className={cn('tile group relative flex h-full flex-col overflow-hidden rounded-2xl p-5', toolHue(t))}>
               <span className="pointer-events-none absolute -top-12 -right-12 size-32 rounded-full bg-[rgb(var(--hue)/0.14)] blur-2xl" />
               <div className="relative flex items-start justify-between">
                 <span className="icon-box size-12">
